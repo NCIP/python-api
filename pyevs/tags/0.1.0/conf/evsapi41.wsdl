@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://evsapi.nci.nih.gov/evsapi41/services/evsapi41Service" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://evsapi.nci.nih.gov/evsapi41/services/evsapi41Service" xmlns:intf="http://evsapi.nci.nih.gov/evsapi41/services/evsapi41Service" xmlns:tns1="urn:domain.evs.nci.nih.gov" xmlns:tns2="urn:security.evs.nci.nih.gov" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ws="http://webservice.system.nci.nih.gov">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="http://webservice.system.nci.nih.gov" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="urn:domain.evs.nci.nih.gov"/>
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="urn:security.evs.nci.nih.gov"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_xsd_anyType">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://xml.apache.org/xml-soap" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="urn:domain.evs.nci.nih.gov"/>
+   <import namespace="http://evsapi.nci.nih.gov/evsapi41/services/evsapi41Service"/>
+   <import namespace="urn:security.evs.nci.nih.gov"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="Vector">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="urn:domain.evs.nci.nih.gov" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://evsapi.nci.nih.gov/evsapi41/services/evsapi41Service"/>
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="urn:security.evs.nci.nih.gov"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="MetaThesaurusConcept">
+    <sequence>
+     <element name="atomCollection" nillable="true" type="ws:ArrayOf_xsd_anyType"/>
+     <element name="cui" nillable="true" type="xsd:string"/>
+     <element name="definitionCollection" nillable="true" type="ws:ArrayOf_xsd_anyType"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="semanticTypeCollection" nillable="true" type="ws:ArrayOf_xsd_anyType"/>
+     <element name="sourceCollection" nillable="true" type="ws:ArrayOf_xsd_anyType"/>
+     <element name="synonymCollection" nillable="true" type="ws:ArrayOf_xsd_anyType"/>
+    </sequence>
+   </complexType>
+   <complexType name="EditActionDate">
+    <sequence>
+     <element name="action" nillable="true" type="xsd:int"/>
+     <element name="editDate" nillable="true" type="xsd:dateTime"/>
+    </sequence>
+   </complexType>
+   <complexType name="History">
+    <sequence>
+     <element name="editAction" nillable="true" type="xsd:string"/>
+     <element name="editActionDate" nillable="true" type="xsd:dateTime"/>
+     <element name="namespaceId" nillable="true" type="xsd:int"/>
+     <element name="referenceCode" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="EdgeProperties">
+    <sequence>
+     <element name="isA" nillable="true" type="xsd:boolean"/>
+     <element name="links" nillable="true" type="ws:ArrayOf_xsd_anyType"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="traverseDown" nillable="true" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   <complexType name="HistoryRecord">
+    <sequence>
+     <element name="descLogicConceptCode" nillable="true" type="xsd:string"/>
+     <element name="historyCollection" nillable="true" type="apachesoap:Vector"/>
+    </sequence>
+   </complexType>
+   <complexType name="TreeNode">
+    <sequence>
+     <element name="isA" nillable="true" type="xsd:boolean"/>
+     <element name="links" nillable="true" type="ws:ArrayOf_xsd_anyType"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="traverseDown" nillable="true" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   <complexType name="Vocabulary">
+    <sequence>
+     <element name="description" nillable="true" type="xsd:string"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="namespaceId" nillable="true" type="xsd:int"/>
+     <element name="securityToken" nillable="true" type="tns2:SecurityToken"/>
+     <element name="siloCollection" nillable="true" type="apachesoap:Vector"/>
+    </sequence>
+   </complexType>
+   <complexType name="DescLogicConcept">
+    <sequence>
+     <element name="associationCollection" nillable="true" type="apachesoap:Vector"/>
+     <element name="code" nillable="true" type="xsd:string"/>
+     <element name="edgeProperties" nillable="true" type="tns1:EdgeProperties"/>
+     <element name="hasChildren" nillable="true" type="xsd:boolean"/>
+     <element name="hasParents" nillable="true" type="xsd:boolean"/>
+     <element name="historyRecord" nillable="true" type="tns1:HistoryRecord"/>
+     <element name="inverseAssociationCollection" nillable="true" type="apachesoap:Vector"/>
+     <element name="inverseRoleCollection" nillable="true" type="apachesoap:Vector"/>
+     <element name="isRetired" nillable="true" type="xsd:boolean"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="namespaceId" nillable="true" type="xsd:int"/>
+     <element name="propertyCollection" nillable="true" type="apachesoap:Vector"/>
+     <element name="roleCollection" nillable="true" type="apachesoap:Vector"/>
+     <element name="semanticTypeVector" nillable="true" type="apachesoap:Vector"/>
+     <element name="treeNode" nillable="true" type="tns1:TreeNode"/>
+     <element name="vocabulary" nillable="true" type="tns1:Vocabulary"/>
+    </sequence>
+   </complexType>
+   <complexType name="Source">
+    <sequence>
+     <element name="abbreviation" nillable="true" type="xsd:string"/>
+     <element name="code" nillable="true" type="xsd:string"/>
+     <element name="description" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Atom">
+    <sequence>
+     <element name="code" nillable="true" type="xsd:string"/>
+     <element name="lui" nillable="true" type="xsd:string"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="origin" nillable="true" type="xsd:string"/>
+     <element name="source" nillable="true" type="tns1:Source"/>
+    </sequence>
+   </complexType>
+   <complexType name="Association">
+    <sequence>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="qualifierCollection" nillable="true" type="apachesoap:Vector"/>
+     <element name="value" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="AttributeSetDescriptor">
+    <sequence>
+     <element name="WITH_ALL_ATTRIBUTES" nillable="true" type="xsd:int"/>
+     <element name="WITH_ALL_PROPERTIES" nillable="true" type="xsd:int"/>
+     <element name="WITH_ALL_ROLES" nillable="true" type="xsd:int"/>
+     <element name="WITH_NO_ATTRIBUTES" nillable="true" type="xsd:int"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="propertyCollection" nillable="true" type="apachesoap:Vector"/>
+     <element name="roleCollection" nillable="true" type="apachesoap:Vector"/>
+    </sequence>
+   </complexType>
+   <complexType name="SemanticType">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Silo">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:int"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Definition">
+    <sequence>
+     <element name="definition" nillable="true" type="xsd:string"/>
+     <element name="source" nillable="true" type="tns1:Source"/>
+    </sequence>
+   </complexType>
+   <complexType name="Role">
+    <sequence>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="value" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Property">
+    <sequence>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="qualifierCollection" nillable="true" type="apachesoap:Vector"/>
+     <element name="value" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Qualifier">
+    <sequence>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="value" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="urn:security.evs.nci.nih.gov" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="urn:domain.evs.nci.nih.gov"/>
+   <import namespace="http://evsapi.nci.nih.gov/evsapi41/services/evsapi41Service"/>
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="SecurityToken">
+    <sequence>
+     <element name="accessToken" nillable="true" type="xsd:string"/>
+     <element name="password" nillable="true" type="xsd:string"/>
+     <element name="userName" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="queryObjectResponse">
+
+      <wsdl:part name="queryObjectReturn" type="ws:ArrayOf_xsd_anyType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="queryResponse1">
+
+      <wsdl:part name="queryReturn" type="ws:ArrayOf_xsd_anyType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="queryRequest1">
+
+      <wsdl:part name="methodName" type="xsd:string"/>
+
+      <wsdl:part name="criteria" type="xsd:anyType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="queryResponse">
+
+      <wsdl:part name="queryReturn" type="ws:ArrayOf_xsd_anyType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="queryObjectRequest">
+
+      <wsdl:part name="targetClassName" type="xsd:string"/>
+
+      <wsdl:part name="criteria" type="xsd:anyType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="queryRequest">
+
+      <wsdl:part name="targetClassName" type="xsd:string"/>
+
+      <wsdl:part name="criteria" type="xsd:anyType"/>
+
+      <wsdl:part name="startIndex" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="EVSWSQuery">
+
+      <wsdl:operation name="query" parameterOrder="targetClassName criteria startIndex">
+
+         <wsdl:input message="impl:queryRequest" name="queryRequest"/>
+
+         <wsdl:output message="impl:queryResponse" name="queryResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="query" parameterOrder="methodName criteria">
+
+         <wsdl:input message="impl:queryRequest1" name="queryRequest1"/>
+
+         <wsdl:output message="impl:queryResponse1" name="queryResponse1"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="queryObject" parameterOrder="targetClassName criteria">
+
+         <wsdl:input message="impl:queryObjectRequest" name="queryObjectRequest"/>
+
+         <wsdl:output message="impl:queryObjectResponse" name="queryObjectResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="evsapi41ServiceSoapBinding" type="impl:EVSWSQuery">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="query">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="queryRequest">
+
+            <wsdlsoap:body namespace="http://webservice.system.nci.nih.gov" use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="queryResponse">
+
+            <wsdlsoap:body namespace="http://webservice.system.nci.nih.gov" use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="query">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="queryRequest1">
+
+            <wsdlsoap:body namespace="http://webservice.system.nci.nih.gov" use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="queryResponse1">
+
+            <wsdlsoap:body namespace="http://webservice.system.nci.nih.gov" use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="queryObject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="queryObjectRequest">
+
+            <wsdlsoap:body namespace="http://webservice.system.nci.nih.gov" use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="queryObjectResponse">
+
+            <wsdlsoap:body namespace="http://webservice.system.nci.nih.gov" use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="EVSWSQueryService">
+
+      <wsdl:port binding="impl:evsapi41ServiceSoapBinding" name="evsapi41Service">
+
+         <wsdlsoap:address location="http://evsapi.nci.nih.gov/evsapi41/services/evsapi41Service"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
