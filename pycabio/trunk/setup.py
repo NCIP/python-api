@@ -20,7 +20,7 @@ setup(name='pyCaBio',
       install_requires=['pyCaCORE==0.1.0'],
       namespace_packages = ['cabig'],
       dependency_links = [
-            'https://gforge.nci.nih.gov/frs/download.php/4256/pyCaCORE-0.1.0-py2.5.egg'
+            'https://gforge.nci.nih.gov/frs/download.php/4589/pyCaCORE-0.1.0-py2.5.egg'
       ],
       test_suite = 'tests.unit_tests'
      )
