@@ -51,3 +51,6 @@ Change History
 0.1.0 - 06/27/2008
 Generated with pyCaCORE 0.1.0.
 Initial alpha release
+
+0.2.0 - 08/18/2008
+Upgraded to use pyCaCORE 0.2.0 in order to fix GF16157.
