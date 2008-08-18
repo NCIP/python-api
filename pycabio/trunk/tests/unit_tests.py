@@ -80,13 +80,17 @@ class WSTest(unittest.TestCase):
                 self.failUnless(gor.id in ids)
                 self.failUnless(gor.id)
                 self.failUnless(gor.relationshipType)
-                
-            
+
+    def testAssociations(self):
+        
+        g = self.cas.queryObject(Gene.className, Gene(symbol='brca2'))[0]
+        self.failUnless(g.cytogeneticLocationCollection)
+        self.failUnless(g.geneAliasCollection)
+
     def testGridIdExists(self):
         
         bigId = "hdl://2500.1.PMEUQUCCL5/DXZ7ZIOFOE"
         self.assertTrue(self.cas.exist(bigId))
-    
     
     def testGetDataObject(self):
     
