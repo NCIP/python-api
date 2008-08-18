@@ -58,7 +58,8 @@ Change History
 0.1.0 - 07/01/2008
 Initial alpha release
 
-
+0.2.0 - 08/18/2008
+Fixed GF16157 - Only one association may be retrieved
 
 
 
