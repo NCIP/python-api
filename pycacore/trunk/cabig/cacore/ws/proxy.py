@@ -71,12 +71,11 @@ class ProxyAssoc(object):
                 assoc = [obj.service.wrap(i) for i in arrayHolder.get_element_item()]
             else:
                 assoc = obj.service.wrap(arrayHolder)
-            obj.cache[self.name] = assoc
-            return assoc
-        
-        # If not, try getAssociation
-        assoc = self.getAssociation(obj, self.name)
-        setattr(obj, self.name, assoc)
+        else:
+            # If not, try getAssociation
+            assoc = self.getAssociation(obj, self.name)
+            
+        obj.cache[self.name] = assoc
         return assoc
             
             
