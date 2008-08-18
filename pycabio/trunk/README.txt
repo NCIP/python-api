@@ -58,3 +58,6 @@ Initial alpha release.
 0.2.0 - 06/27/2008
 Regenerated with pyCaCORE 0.1.0.
 Moved cabio under cabig package.
+
+0.3.0 - 08/18/2008
+Upgraded to use pyCaCORE 0.2.0 in order to fix GF16157.
