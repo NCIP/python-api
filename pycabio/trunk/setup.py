@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='pyCaBio',
-      version='0.2.0',
+      version='0.3.0',
       description='caBIO Python API',
       long_description='Pythonic API for the caBIO Database based on web services',
       license='caBIG Open Source Software License',
@@ -17,10 +17,10 @@ setup(name='pyCaBio',
             'cabig.cabio.common',
             'cabig.cabio.common.provenance',
       ],
-      install_requires=['pyCaCORE==0.1.0'],
+      install_requires=['pyCaCORE==0.2.0'],
       namespace_packages = ['cabig'],
       dependency_links = [
-            'https://gforge.nci.nih.gov/frs/download.php/4589/pyCaCORE-0.1.0-py2.5.egg'
+            'https://gforge.nci.nih.gov/frs/download.php/4655/pyCaCORE-0.2.0-py2.5.egg'
       ],
       test_suite = 'tests.unit_tests'
      )
