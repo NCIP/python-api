@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='pyCaBio',
-      version='0.3.0',
+      version='0.4.0',
       description='caBIO Python API',
       long_description='Pythonic API for the caBIO Database based on web services',
       license='caBIG Open Source Software License',

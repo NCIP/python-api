@@ -34,6 +34,26 @@ class searchResponse:
         self._searchReturn =  kw.get("searchReturn")
 searchResponse.typecode.pyclass = searchResponse
 
+_getVersionRequestTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","getVersion"), ofwhat=[], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
+class getVersionRequest:
+    typecode = _getVersionRequestTypecode
+    __metaclass__ = pyclass_type
+    def __init__(self, **kw):
+        """Keyword parameters:
+        """
+getVersionRequest.typecode.pyclass = getVersionRequest
+
+_getVersionResponseTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","getVersionResponse"), ofwhat=[ZSI.TC.String(pname="getVersionReturn", aname="_getVersionReturn", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True)], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
+class getVersionResponse:
+    typecode = _getVersionResponseTypecode
+    __metaclass__ = pyclass_type
+    def __init__(self, **kw):
+        """Keyword parameters:
+        getVersionReturn -- part getVersionReturn
+        """
+        self._getVersionReturn =  kw.get("getVersionReturn")
+getVersionResponse.typecode.pyclass = getVersionResponse
+
 _existRequestTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","exist"), ofwhat=[ZSI.TC.String(pname="in0", aname="_in0", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True)], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
 class existRequest:
     typecode = _existRequestTypecode
@@ -103,26 +123,6 @@ class queryResponse:
         """
         self._queryReturn =  kw.get("queryReturn")
 queryResponse.typecode.pyclass = queryResponse
-
-_getVersionRequestTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","getVersion"), ofwhat=[], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
-class getVersionRequest:
-    typecode = _getVersionRequestTypecode
-    __metaclass__ = pyclass_type
-    def __init__(self, **kw):
-        """Keyword parameters:
-        """
-getVersionRequest.typecode.pyclass = getVersionRequest
-
-_getVersionResponseTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","getVersionResponse"), ofwhat=[ZSI.TC.String(pname="getVersionReturn", aname="_getVersionReturn", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True)], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
-class getVersionResponse:
-    typecode = _getVersionResponseTypecode
-    __metaclass__ = pyclass_type
-    def __init__(self, **kw):
-        """Keyword parameters:
-        getVersionReturn -- part getVersionReturn
-        """
-        self._getVersionReturn =  kw.get("getVersionReturn")
-getVersionResponse.typecode.pyclass = getVersionResponse
 
 _getAssociationRequestTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","getAssociation"), ofwhat=[ZSI.TC.AnyType(pname="source", aname="_source", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True), ZSI.TC.String(pname="associationName", aname="_associationName", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True), ZSI.TCnumbers.Iint(pname="startIndex", aname="_startIndex", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True)], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
 class getAssociationRequest:
@@ -244,7 +244,7 @@ class CaBioWSQueryService(ServiceSOAPBinding):
     soapAction = {}
     root = {}
 
-    def __init__(self, post='/cabio41/services/caBIOService', **kw):
+    def __init__(self, post='/cabio42/services/caBIOService', **kw):
         ServiceSOAPBinding.__init__(self, post)
 
     def soap_search(self, ps, **kw):
@@ -253,6 +253,13 @@ class CaBioWSQueryService(ServiceSOAPBinding):
 
     soapAction[''] = 'soap_search'
     root[(searchRequest.typecode.nspname,searchRequest.typecode.pname)] = 'soap_search'
+
+    def soap_getVersion(self, ps, **kw):
+        request = ps.Parse(getVersionRequest.typecode)
+        return request,getVersionResponse()
+
+    soapAction[''] = 'soap_getVersion'
+    root[(getVersionRequest.typecode.nspname,getVersionRequest.typecode.pname)] = 'soap_getVersion'
 
     def soap_exist(self, ps, **kw):
         request = ps.Parse(existRequest.typecode)
@@ -274,13 +281,6 @@ class CaBioWSQueryService(ServiceSOAPBinding):
 
     soapAction[''] = 'soap_query'
     root[(queryRequest.typecode.nspname,queryRequest.typecode.pname)] = 'soap_query'
-
-    def soap_getVersion(self, ps, **kw):
-        request = ps.Parse(getVersionRequest.typecode)
-        return request,getVersionResponse()
-
-    soapAction[''] = 'soap_getVersion'
-    root[(getVersionRequest.typecode.nspname,getVersionRequest.typecode.pname)] = 'soap_getVersion'
 
     def soap_getAssociation(self, ps, **kw):
         request = ps.Parse(getAssociationRequest.typecode)

@@ -2,7 +2,7 @@
 import cabig.cabio.CaBioWSQueryService_client as services
 from cabig.cacore.ws.proxy import *
 
-schema = services.ns5
+schema = services.ns6
 
 class DatabaseCrossReference(WSBean):
 

@@ -4,6 +4,7 @@ import cabig.cabio.CaBioWSQueryService_client as services
 from cabig.cacore.ws.axis import AxisReader, ZSIDebugStreamReader
 from cabig.cacore.ws.proxy import *
 
+from cabig.cabio.pathways import *
 from cabig.cabio.common.domain import *
 from cabig.cabio.common.provenance.domain import *
 from cabig.cabio.domain import *

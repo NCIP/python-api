@@ -8,7 +8,7 @@ class WSTest(unittest.TestCase):
 
     def testGetVersion(self):
         version = self.cas.getVersion()
-        self.assertEqual("4.0",version)
+        self.assertEqual("4.2",version)
     
     def testGetRecordsPerQuery(self):
         num = self.cas.getRecordsPerQuery()

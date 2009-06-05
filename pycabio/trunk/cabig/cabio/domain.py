@@ -19,6 +19,7 @@ class Agent(WSBean):
     source = ProxyAttr('source')
     clinicalTrialProtocolCollection = ProxyAssoc('clinicalTrialProtocolCollection',True)
     geneFunctionAssociationCollection = ProxyAssoc('geneFunctionAssociationCollection',True)
+    pathwayEntityCollection = ProxyAssoc('pathwayEntityCollection',True)
     targetCollection = ProxyAssoc('targetCollection',True)
     
     def __init__(self, holder=None, service=None, **kwargs):
@@ -257,6 +258,7 @@ class EvidenceCode(WSBean):
     evidenceCode = ProxyAttr('evidenceCode')
     id = ProxyAttr('id')
     evidenceCollection = ProxyAssoc('evidenceCollection',True)
+    interactionCollection = ProxyAssoc('interactionCollection',True)
     
     def __init__(self, holder=None, service=None, **kwargs):
         if not(holder): holder = schema.EvidenceCode_Def(None).pyclass()
@@ -277,6 +279,7 @@ class Evidence(WSBean):
     sentenceStatus = ProxyAttr('sentenceStatus')
     evidenceCodeCollection = ProxyAssoc('evidenceCodeCollection',True)
     geneFunctionAssociationCollection = ProxyAssoc('geneFunctionAssociationCollection',True)
+    interactionCollection = ProxyAssoc('interactionCollection',True)
     
     def __init__(self, holder=None, service=None, **kwargs):
         if not(holder): holder = schema.Evidence_Def(None).pyclass()
@@ -337,6 +340,7 @@ class ExpressedSequenceTag(WSBean):
     databaseCrossReferenceCollection = ProxyAssoc('databaseCrossReferenceCollection',True)
     expressionArrayReporterCollection = ProxyAssoc('expressionArrayReporterCollection',True)
     geneCollection = ProxyAssoc('geneCollection',True)
+    pathwayEntityCollection = ProxyAssoc('pathwayEntityCollection',True)
     physicalLocationCollection = ProxyAssoc('physicalLocationCollection',True)
     
     def __init__(self, holder=None, service=None, **kwargs):
@@ -712,6 +716,7 @@ class MessengerRNA(WSBean):
     databaseCrossReferenceCollection = ProxyAssoc('databaseCrossReferenceCollection',True)
     expressionArrayReporterCollection = ProxyAssoc('expressionArrayReporterCollection',True)
     geneCollection = ProxyAssoc('geneCollection',True)
+    pathwayEntityCollection = ProxyAssoc('pathwayEntityCollection',True)
     physicalLocationCollection = ProxyAssoc('physicalLocationCollection',True)
     
     def __init__(self, holder=None, service=None, **kwargs):
@@ -772,6 +777,7 @@ class NucleicAcidSequence(WSBean):
     databaseCrossReferenceCollection = ProxyAssoc('databaseCrossReferenceCollection',True)
     expressionArrayReporterCollection = ProxyAssoc('expressionArrayReporterCollection',True)
     geneCollection = ProxyAssoc('geneCollection',True)
+    pathwayEntityCollection = ProxyAssoc('pathwayEntityCollection',True)
     physicalLocationCollection = ProxyAssoc('physicalLocationCollection',True)
     
     def __init__(self, holder=None, service=None, **kwargs):
@@ -817,13 +823,18 @@ class Pathway(WSBean):
     className = "gov.nih.nci.cabio.domain.Pathway"
 
     bigid = ProxyAttr('bigid')
+    curator = ProxyAttr('curator')
     description = ProxyAttr('description')
     diagram = ProxyAttr('diagram')
     displayValue = ProxyAttr('displayValue')
     id = ProxyAttr('id')
     name = ProxyAttr('name')
+    reviewer = ProxyAttr('reviewer')
+    source = ProxyAttr('source')
     geneCollection = ProxyAssoc('geneCollection',True)
     histopathologyCollection = ProxyAssoc('histopathologyCollection',True)
+    interactionCollection = ProxyAssoc('interactionCollection',True)
+    pathwayReferenceCollection = ProxyAssoc('pathwayReferenceCollection',True)
     taxon = ProxyAssoc('taxon',False)
     
     def __init__(self, holder=None, service=None, **kwargs):
@@ -925,8 +936,9 @@ class Protein(WSBean):
     uniProtCode = ProxyAttr('uniProtCode')
     geneCollection = ProxyAssoc('geneCollection',True)
     keywords = ProxyAssoc('keywords',True)
+    pathwayEntityCollection = ProxyAssoc('pathwayEntityCollection',True)
     proteinAliasCollection = ProxyAssoc('proteinAliasCollection',True)
-    proteinSequence = ProxyAssoc('proteinSequence',True)
+    proteinSequenceCollection = ProxyAssoc('proteinSequenceCollection',True)
     secondaryAccession = ProxyAssoc('secondaryAccession',True)
     taxonCollection = ProxyAssoc('taxonCollection',True)
     

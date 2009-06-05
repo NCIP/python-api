@@ -16,7 +16,7 @@ from ZSI.generate.pyclass import pyclass_type
 
 # Locator
 class CaBioWSQueryServiceLocator:
-    caBIOService_address = "http://cabioapi.nci.nih.gov/cabio41/services/caBIOService"
+    caBIOService_address = "http://cabioapi.nci.nih.gov/cabio42/services/caBIOService"
     def getcaBIOServiceAddress(self):
         return CaBioWSQueryServiceLocator.caBIOService_address
     def getcaBIOService(self, url=None, **kw):
@@ -39,6 +39,16 @@ class caBIOServiceSoapBindingSOAP:
         self.binding.Send(None, None, request, soapaction="", **kw)
         # no output wsaction
         response = self.binding.Receive(searchResponse.typecode)
+        return response
+
+    # op: getVersion
+    def getVersion(self, request, **kw):
+        if isinstance(request, getVersionRequest) is False:
+            raise TypeError, "%s incorrect request type" % (request.__class__)
+        # no input wsaction
+        self.binding.Send(None, None, request, soapaction="", **kw)
+        # no output wsaction
+        response = self.binding.Receive(getVersionResponse.typecode)
         return response
 
     # op: exist
@@ -69,16 +79,6 @@ class caBIOServiceSoapBindingSOAP:
         self.binding.Send(None, None, request, soapaction="", **kw)
         # no output wsaction
         response = self.binding.Receive(queryResponse.typecode)
-        return response
-
-    # op: getVersion
-    def getVersion(self, request, **kw):
-        if isinstance(request, getVersionRequest) is False:
-            raise TypeError, "%s incorrect request type" % (request.__class__)
-        # no input wsaction
-        self.binding.Send(None, None, request, soapaction="", **kw)
-        # no output wsaction
-        response = self.binding.Receive(getVersionResponse.typecode)
         return response
 
     # op: getAssociation
@@ -153,6 +153,26 @@ class searchResponse:
         self._searchReturn =  kw.get("searchReturn")
 searchResponse.typecode.pyclass = searchResponse
 
+_getVersionRequestTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","getVersion"), ofwhat=[], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
+class getVersionRequest:
+    typecode = _getVersionRequestTypecode
+    __metaclass__ = pyclass_type
+    def __init__(self, **kw):
+        """Keyword parameters:
+        """
+getVersionRequest.typecode.pyclass = getVersionRequest
+
+_getVersionResponseTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","getVersionResponse"), ofwhat=[ZSI.TC.String(pname="getVersionReturn", aname="_getVersionReturn", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True)], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
+class getVersionResponse:
+    typecode = _getVersionResponseTypecode
+    __metaclass__ = pyclass_type
+    def __init__(self, **kw):
+        """Keyword parameters:
+        getVersionReturn -- part getVersionReturn
+        """
+        self._getVersionReturn =  kw.get("getVersionReturn")
+getVersionResponse.typecode.pyclass = getVersionResponse
+
 _existRequestTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","exist"), ofwhat=[ZSI.TC.String(pname="in0", aname="_in0", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True)], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
 class existRequest:
     typecode = _existRequestTypecode
@@ -222,26 +242,6 @@ class queryResponse:
         """
         self._queryReturn =  kw.get("queryReturn")
 queryResponse.typecode.pyclass = queryResponse
-
-_getVersionRequestTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","getVersion"), ofwhat=[], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
-class getVersionRequest:
-    typecode = _getVersionRequestTypecode
-    __metaclass__ = pyclass_type
-    def __init__(self, **kw):
-        """Keyword parameters:
-        """
-getVersionRequest.typecode.pyclass = getVersionRequest
-
-_getVersionResponseTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","getVersionResponse"), ofwhat=[ZSI.TC.String(pname="getVersionReturn", aname="_getVersionReturn", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True)], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
-class getVersionResponse:
-    typecode = _getVersionResponseTypecode
-    __metaclass__ = pyclass_type
-    def __init__(self, **kw):
-        """Keyword parameters:
-        getVersionReturn -- part getVersionReturn
-        """
-        self._getVersionReturn =  kw.get("getVersionReturn")
-getVersionResponse.typecode.pyclass = getVersionResponse
 
 _getAssociationRequestTypecode = Struct(pname=("http://webservice.system.nci.nih.gov","getAssociation"), ofwhat=[ZSI.TC.AnyType(pname="source", aname="_source", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True), ZSI.TC.String(pname="associationName", aname="_associationName", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True), ZSI.TCnumbers.Iint(pname="startIndex", aname="_startIndex", typed=False, encoded=None, minOccurs=1, maxOccurs=1, nillable=True)], pyclass=None, encoded="http://webservice.system.nci.nih.gov")
 class getAssociationRequest:

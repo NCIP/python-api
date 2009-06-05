@@ -87,32 +87,12 @@ class ns0:
             Holder.__name__ = "SearchQuery_Holder"
             self.pyclass = Holder
 
-    class HashMap_Def(ZSI.TC.ComplexType, TypeDefinition):
-        #complexType/complexContent restrict anyType
-        schema = "urn:search.nci.nih.gov"
-        type = (schema, "HashMap")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns0.HashMap_Def.schema
-            TClist = []
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TC.ComplexType.__init__(self, None, TClist, pname=pname, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    return
-            Holder.__name__ = "HashMap_Holder"
-            self.pyclass = Holder
-
     class SearchResult_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:search.nci.nih.gov"
         type = (schema, "SearchResult")
         def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
             ns = ns0.SearchResult_Def.schema
-            TClist = [ZSI.TC.String(pname="className", aname="_className", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="displayText", aname="_displayText", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="hit", aname="_hit", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="keyword", aname="_keyword", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:search.nci.nih.gov","HashMap",lazy=True)(pname="properties", aname="_properties", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            TClist = [ZSI.TC.String(pname="className", aname="_className", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="displayText", aname="_displayText", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="hit", aname="_hit", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="keyword", aname="_keyword", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://xml.apache.org/xml-soap","Map",lazy=True)(pname="properties", aname="_properties", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
             if restrict: TClist = ofwhat
@@ -162,6 +142,47 @@ class ns2:
             Holder.__name__ = "Vector_Holder"
             self.pyclass = Holder
 
+    class mapItem_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "http://xml.apache.org/xml-soap"
+        type = (schema, "mapItem")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns2.mapItem_Def.schema
+            TClist = [ZSI.TC.AnyType(pname="key", aname="_key", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.AnyType(pname="value", aname="_value", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._key = None
+                    self._value = None
+                    return
+            Holder.__name__ = "mapItem_Holder"
+            self.pyclass = Holder
+
+    class Map_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "http://xml.apache.org/xml-soap"
+        type = (schema, "Map")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns2.Map_Def.schema
+            TClist = [GTD("http://xml.apache.org/xml-soap","mapItem",lazy=True)(pname="item", aname="_item", minOccurs=0, maxOccurs="unbounded", nillable=False, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._item = []
+                    return
+            Holder.__name__ = "Map_Holder"
+            self.pyclass = Holder
+
 # end class ns2 (tns: http://xml.apache.org/xml-soap)
 
 ##############################
@@ -171,6 +192,35 @@ class ns2:
 
 class ns3:
     targetNamespace = "urn:domain.cabio.nci.nih.gov"
+
+    class Transcript_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "Transcript")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.Transcript_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="exonArrayReporterCollection", aname="_exonArrayReporterCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="exonCollection", aname="_exonCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="physicalLocationCollection", aname="_physicalLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="source", aname="_source", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="sourceId", aname="_sourceId", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="strand", aname="_strand", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="totalProbeCount", aname="_totalProbeCount", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._exonArrayReporterCollection = None
+                    self._exonCollection = None
+                    self._geneCollection = None
+                    self._id = None
+                    self._physicalLocationCollection = None
+                    self._source = None
+                    self._sourceId = None
+                    self._strand = None
+                    self._totalProbeCount = None
+                    return
+            Holder.__name__ = "Transcript_Holder"
+            self.pyclass = Holder
 
     class Taxon_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.cabio.nci.nih.gov"
@@ -292,121 +342,6 @@ class ns3:
 
             ns3.Location_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
 
-    class SNP_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "SNP")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.SNP_Def.schema
-            TClist = [ZSI.TC.String(pname="DBSNPID", aname="_DBSNPID", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="alleleA", aname="_alleleA", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="alleleB", aname="_alleleB", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="aminoAcidChange", aname="_aminoAcidChange", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="chrXPseudoAutosomalRegion", aname="_chrXPseudoAutosomalRegion", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="codingStatus", aname="_codingStatus", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="cytogeneticLocationCollection", aname="_cytogeneticLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="databaseCrossReferenceCollection", aname="_databaseCrossReferenceCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="flank", aname="_flank", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="physicalLocationCollection", aname="_physicalLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="populationFrequencyCollection", aname="_populationFrequencyCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="relativeLocationCollection", aname="_relativeLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="snpArrayReporterCollection", aname="_snpArrayReporterCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="validationStatus", aname="_validationStatus", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._DBSNPID = None
-                    self._alleleA = None
-                    self._alleleB = None
-                    self._aminoAcidChange = None
-                    self._bigid = None
-                    self._chrXPseudoAutosomalRegion = None
-                    self._codingStatus = None
-                    self._cytogeneticLocationCollection = None
-                    self._databaseCrossReferenceCollection = None
-                    self._flank = None
-                    self._id = None
-                    self._physicalLocationCollection = None
-                    self._populationFrequencyCollection = None
-                    self._relativeLocationCollection = None
-                    self._snpArrayReporterCollection = None
-                    self._validationStatus = None
-                    return
-            Holder.__name__ = "SNP_Holder"
-            self.pyclass = Holder
-
-    class SNPCytogeneticLocation_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "SNPCytogeneticLocation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.SNPCytogeneticLocation_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","SNP",lazy=True)(pname="SNP", aname="_SNP", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.CytogeneticLocation_Def not in ns3.SNPCytogeneticLocation_Def.__bases__:
-                bases = list(ns3.SNPCytogeneticLocation_Def.__bases__)
-                bases.insert(0, ns3.CytogeneticLocation_Def)
-                ns3.SNPCytogeneticLocation_Def.__bases__ = tuple(bases)
-
-            ns3.CytogeneticLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class PhysicalLocation_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "PhysicalLocation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.PhysicalLocation_Def.schema
-            TClist = [ZSI.TC.String(pname="assembly", aname="_assembly", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="chromosomalEndPosition", aname="_chromosomalEndPosition", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="chromosomalStartPosition", aname="_chromosomalStartPosition", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.Location_Def not in ns3.PhysicalLocation_Def.__bases__:
-                bases = list(ns3.PhysicalLocation_Def.__bases__)
-                bases.insert(0, ns3.Location_Def)
-                ns3.PhysicalLocation_Def.__bases__ = tuple(bases)
-
-            ns3.Location_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class Transcript_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "Transcript")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.Transcript_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="exonArrayReporterCollection", aname="_exonArrayReporterCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="exonCollection", aname="_exonCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="physicalLocationCollection", aname="_physicalLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="source", aname="_source", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="sourceId", aname="_sourceId", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="strand", aname="_strand", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="totalProbeCount", aname="_totalProbeCount", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._exonArrayReporterCollection = None
-                    self._exonCollection = None
-                    self._geneCollection = None
-                    self._id = None
-                    self._physicalLocationCollection = None
-                    self._source = None
-                    self._sourceId = None
-                    self._strand = None
-                    self._totalProbeCount = None
-                    return
-            Holder.__name__ = "Transcript_Holder"
-            self.pyclass = Holder
-
-    class TranscriptPhysicalLocation_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "TranscriptPhysicalLocation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.TranscriptPhysicalLocation_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Transcript",lazy=True)(pname="transcript", aname="_transcript", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.PhysicalLocation_Def not in ns3.TranscriptPhysicalLocation_Def.__bases__:
-                bases = list(ns3.TranscriptPhysicalLocation_Def.__bases__)
-                bases.insert(0, ns3.PhysicalLocation_Def)
-                ns3.TranscriptPhysicalLocation_Def.__bases__ = tuple(bases)
-
-            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
     class Microarray_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.cabio.nci.nih.gov"
         type = (schema, "Microarray")
@@ -461,6 +396,58 @@ class ns3:
                     return
             Holder.__name__ = "ArrayReporter_Holder"
             self.pyclass = Holder
+
+    class SNP_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "SNP")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.SNP_Def.schema
+            TClist = [ZSI.TC.String(pname="DBSNPID", aname="_DBSNPID", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="alleleA", aname="_alleleA", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="alleleB", aname="_alleleB", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="aminoAcidChange", aname="_aminoAcidChange", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="chrXPseudoAutosomalRegion", aname="_chrXPseudoAutosomalRegion", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="codingStatus", aname="_codingStatus", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="cytogeneticLocationCollection", aname="_cytogeneticLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="databaseCrossReferenceCollection", aname="_databaseCrossReferenceCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="flank", aname="_flank", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="physicalLocationCollection", aname="_physicalLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="populationFrequencyCollection", aname="_populationFrequencyCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="relativeLocationCollection", aname="_relativeLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="snpArrayReporterCollection", aname="_snpArrayReporterCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="validationStatus", aname="_validationStatus", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._DBSNPID = None
+                    self._alleleA = None
+                    self._alleleB = None
+                    self._aminoAcidChange = None
+                    self._bigid = None
+                    self._chrXPseudoAutosomalRegion = None
+                    self._codingStatus = None
+                    self._cytogeneticLocationCollection = None
+                    self._databaseCrossReferenceCollection = None
+                    self._flank = None
+                    self._id = None
+                    self._physicalLocationCollection = None
+                    self._populationFrequencyCollection = None
+                    self._relativeLocationCollection = None
+                    self._snpArrayReporterCollection = None
+                    self._validationStatus = None
+                    return
+            Holder.__name__ = "SNP_Holder"
+            self.pyclass = Holder
+
+    class SNPArrayReporter_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "SNPArrayReporter")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.SNPArrayReporter_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","SNP",lazy=True)(pname="SNP", aname="_SNP", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="phastConservation", aname="_phastConservation", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.ArrayReporter_Def not in ns3.SNPArrayReporter_Def.__bases__:
+                bases = list(ns3.SNPArrayReporter_Def.__bases__)
+                bases.insert(0, ns3.ArrayReporter_Def)
+                ns3.SNPArrayReporter_Def.__bases__ = tuple(bases)
+
+            ns3.ArrayReporter_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
 
     class TranscriptArrayReporter_Def(TypeDefinition):
         #complexType/complexContent extension
@@ -652,23 +639,6 @@ class ns3:
             Holder.__name__ = "Clone_Holder"
             self.pyclass = Holder
 
-    class MessengerRNA_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "MessengerRNA")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.MessengerRNA_Def.schema
-            TClist = []
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.NucleicAcidSequence_Def not in ns3.MessengerRNA_Def.__bases__:
-                bases = list(ns3.MessengerRNA_Def.__bases__)
-                bases.insert(0, ns3.NucleicAcidSequence_Def)
-                ns3.MessengerRNA_Def.__bases__ = tuple(bases)
-
-            ns3.NucleicAcidSequence_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
     class ExpressedSequenceTag_Def(TypeDefinition):
         #complexType/complexContent extension
         schema = "urn:domain.cabio.nci.nih.gov"
@@ -683,6 +653,23 @@ class ns3:
                 bases = list(ns3.ExpressedSequenceTag_Def.__bases__)
                 bases.insert(0, ns3.NucleicAcidSequence_Def)
                 ns3.ExpressedSequenceTag_Def.__bases__ = tuple(bases)
+
+            ns3.NucleicAcidSequence_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class MessengerRNA_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "MessengerRNA")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.MessengerRNA_Def.schema
+            TClist = []
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.NucleicAcidSequence_Def not in ns3.MessengerRNA_Def.__bases__:
+                bases = list(ns3.MessengerRNA_Def.__bases__)
+                bases.insert(0, ns3.NucleicAcidSequence_Def)
+                ns3.MessengerRNA_Def.__bases__ = tuple(bases)
 
             ns3.NucleicAcidSequence_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
 
@@ -715,7 +702,7 @@ class ns3:
         type = (schema, "NucleicAcidSequence")
         def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
             ns = ns3.NucleicAcidSequence_Def.schema
-            TClist = [ZSI.TC.String(pname="accessionNumber", aname="_accessionNumber", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="accessionNumberVersion", aname="_accessionNumberVersion", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","CloneRelativeLocation",lazy=True)(pname="cloneRelativeLocation", aname="_cloneRelativeLocation", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="databaseCrossReferenceCollection", aname="_databaseCrossReferenceCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="description", aname="_description", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="expressionArrayReporterCollection", aname="_expressionArrayReporterCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="length", aname="_length", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="physicalLocationCollection", aname="_physicalLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="value", aname="_value", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            TClist = [ZSI.TC.String(pname="accessionNumber", aname="_accessionNumber", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="accessionNumberVersion", aname="_accessionNumberVersion", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","CloneRelativeLocation",lazy=True)(pname="cloneRelativeLocation", aname="_cloneRelativeLocation", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="databaseCrossReferenceCollection", aname="_databaseCrossReferenceCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="description", aname="_description", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="expressionArrayReporterCollection", aname="_expressionArrayReporterCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="length", aname="_length", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="pathwayEntityCollection", aname="_pathwayEntityCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="physicalLocationCollection", aname="_physicalLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="value", aname="_value", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
             if restrict: TClist = ofwhat
@@ -735,6 +722,7 @@ class ns3:
                     self._geneCollection = None
                     self._id = None
                     self._length = None
+                    self._pathwayEntityCollection = None
                     self._physicalLocationCollection = None
                     self._type = None
                     self._value = None
@@ -758,23 +746,6 @@ class ns3:
                 ns3.ExpressionArrayReporter_Def.__bases__ = tuple(bases)
 
             ns3.TranscriptArrayReporter_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class SNPArrayReporter_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "SNPArrayReporter")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.SNPArrayReporter_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","SNP",lazy=True)(pname="SNP", aname="_SNP", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="phastConservation", aname="_phastConservation", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.ArrayReporter_Def not in ns3.SNPArrayReporter_Def.__bases__:
-                bases = list(ns3.SNPArrayReporter_Def.__bases__)
-                bases.insert(0, ns3.ArrayReporter_Def)
-                ns3.SNPArrayReporter_Def.__bases__ = tuple(bases)
-
-            ns3.ArrayReporter_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
 
     class Exon_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.cabio.nci.nih.gov"
@@ -818,29 +789,29 @@ class ns3:
 
             ns3.TranscriptArrayReporter_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
 
-    class ArrayReporterPhysicalLocation_Def(TypeDefinition):
+    class ArrayReporterCytogeneticLocation_Def(TypeDefinition):
         #complexType/complexContent extension
         schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "ArrayReporterPhysicalLocation")
+        type = (schema, "ArrayReporterCytogeneticLocation")
         def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.ArrayReporterPhysicalLocation_Def.schema
+            ns = ns3.ArrayReporterCytogeneticLocation_Def.schema
             TClist = [GTD("urn:domain.cabio.nci.nih.gov","ArrayReporter",lazy=True)(pname="arrayReporter", aname="_arrayReporter", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             attributes = self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
             if restrict: TClist = ofwhat
-            if ns3.PhysicalLocation_Def not in ns3.ArrayReporterPhysicalLocation_Def.__bases__:
-                bases = list(ns3.ArrayReporterPhysicalLocation_Def.__bases__)
-                bases.insert(0, ns3.PhysicalLocation_Def)
-                ns3.ArrayReporterPhysicalLocation_Def.__bases__ = tuple(bases)
+            if ns3.CytogeneticLocation_Def not in ns3.ArrayReporterCytogeneticLocation_Def.__bases__:
+                bases = list(ns3.ArrayReporterCytogeneticLocation_Def.__bases__)
+                bases.insert(0, ns3.CytogeneticLocation_Def)
+                ns3.ArrayReporterCytogeneticLocation_Def.__bases__ = tuple(bases)
 
-            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+            ns3.CytogeneticLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
 
-    class RelativeLocation_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+    class Protein_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "RelativeLocation")
+        type = (schema, "Protein")
         def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.RelativeLocation_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","SNP",lazy=True)(pname="SNP", aname="_SNP", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="distance", aname="_distance", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="orientation", aname="_orientation", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            ns = ns3.Protein_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="copyrightStatement", aname="_copyrightStatement", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="keywords", aname="_keywords", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="pathwayEntityCollection", aname="_pathwayEntityCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="primaryAccession", aname="_primaryAccession", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="proteinAliasCollection", aname="_proteinAliasCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="proteinSequenceCollection", aname="_proteinSequenceCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="secondaryAccession", aname="_secondaryAccession", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="taxonCollection", aname="_taxonCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="uniProtCode", aname="_uniProtCode", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
             if restrict: TClist = ofwhat
@@ -850,38 +821,46 @@ class ns3:
                 typecode = self
                 def __init__(self):
                     # pyclass
-                    self._SNP = None
                     self._bigid = None
-                    self._distance = None
+                    self._copyrightStatement = None
+                    self._geneCollection = None
                     self._id = None
-                    self._orientation = None
+                    self._keywords = None
+                    self._name = None
+                    self._pathwayEntityCollection = None
+                    self._primaryAccession = None
+                    self._proteinAliasCollection = None
+                    self._proteinSequenceCollection = None
+                    self._secondaryAccession = None
+                    self._taxonCollection = None
+                    self._uniProtCode = None
                     return
-            Holder.__name__ = "RelativeLocation_Holder"
+            Holder.__name__ = "Protein_Holder"
             self.pyclass = Holder
 
-    class MarkerRelativeLocation_Def(TypeDefinition):
+    class SNPCytogeneticLocation_Def(TypeDefinition):
         #complexType/complexContent extension
         schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "MarkerRelativeLocation")
+        type = (schema, "SNPCytogeneticLocation")
         def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.MarkerRelativeLocation_Def.schema
-            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="markerCollection", aname="_markerCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            ns = ns3.SNPCytogeneticLocation_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","SNP",lazy=True)(pname="SNP", aname="_SNP", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             attributes = self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
             if restrict: TClist = ofwhat
-            if ns3.RelativeLocation_Def not in ns3.MarkerRelativeLocation_Def.__bases__:
-                bases = list(ns3.MarkerRelativeLocation_Def.__bases__)
-                bases.insert(0, ns3.RelativeLocation_Def)
-                ns3.MarkerRelativeLocation_Def.__bases__ = tuple(bases)
+            if ns3.CytogeneticLocation_Def not in ns3.SNPCytogeneticLocation_Def.__bases__:
+                bases = list(ns3.SNPCytogeneticLocation_Def.__bases__)
+                bases.insert(0, ns3.CytogeneticLocation_Def)
+                ns3.SNPCytogeneticLocation_Def.__bases__ = tuple(bases)
 
-            ns3.RelativeLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+            ns3.CytogeneticLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
 
     class Pathway_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.cabio.nci.nih.gov"
         type = (schema, "Pathway")
         def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
             ns = ns3.Pathway_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="description", aname="_description", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="diagram", aname="_diagram", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="displayValue", aname="_displayValue", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="histopathologyCollection", aname="_histopathologyCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Taxon",lazy=True)(pname="taxon", aname="_taxon", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="curator", aname="_curator", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="description", aname="_description", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="diagram", aname="_diagram", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="displayValue", aname="_displayValue", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="histopathologyCollection", aname="_histopathologyCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="interactionCollection", aname="_interactionCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="pathwayReferenceCollection", aname="_pathwayReferenceCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="reviewer", aname="_reviewer", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="source", aname="_source", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Taxon",lazy=True)(pname="taxon", aname="_taxon", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
             if restrict: TClist = ofwhat
@@ -892,34 +871,48 @@ class ns3:
                 def __init__(self):
                     # pyclass
                     self._bigid = None
+                    self._curator = None
                     self._description = None
                     self._diagram = None
                     self._displayValue = None
                     self._geneCollection = None
                     self._histopathologyCollection = None
                     self._id = None
+                    self._interactionCollection = None
                     self._name = None
+                    self._pathwayReferenceCollection = None
+                    self._reviewer = None
+                    self._source = None
                     self._taxon = None
                     return
             Holder.__name__ = "Pathway_Holder"
             self.pyclass = Holder
 
-    class GenePhysicalLocation_Def(TypeDefinition):
-        #complexType/complexContent extension
+    class Target_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "GenePhysicalLocation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.GenePhysicalLocation_Def.schema
-            TClist = [ZSI.TC.String(pname="featureType", aname="_featureType", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="gene", aname="_gene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
+        type = (schema, "Target")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.Target_Def.schema
+            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="agentCollection", aname="_agentCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="anomalyCollection", aname="_anomalyCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
             if restrict: TClist = ofwhat
-            if ns3.PhysicalLocation_Def not in ns3.GenePhysicalLocation_Def.__bases__:
-                bases = list(ns3.GenePhysicalLocation_Def.__bases__)
-                bases.insert(0, ns3.PhysicalLocation_Def)
-                ns3.GenePhysicalLocation_Def.__bases__ = tuple(bases)
-
-            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._agentCollection = None
+                    self._anomalyCollection = None
+                    self._bigid = None
+                    self._geneCollection = None
+                    self._id = None
+                    self._name = None
+                    self._type = None
+                    return
+            Holder.__name__ = "Target_Holder"
+            self.pyclass = Holder
 
     class DiseaseOntology_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.cabio.nci.nih.gov"
@@ -1010,6 +1003,577 @@ class ns3:
             Holder.__name__ = "Histopathology_Holder"
             self.pyclass = Holder
 
+    class PhysicalLocation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "PhysicalLocation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.PhysicalLocation_Def.schema
+            TClist = [ZSI.TC.String(pname="assembly", aname="_assembly", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="chromosomalEndPosition", aname="_chromosomalEndPosition", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="chromosomalStartPosition", aname="_chromosomalStartPosition", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.Location_Def not in ns3.PhysicalLocation_Def.__bases__:
+                bases = list(ns3.PhysicalLocation_Def.__bases__)
+                bases.insert(0, ns3.Location_Def)
+                ns3.PhysicalLocation_Def.__bases__ = tuple(bases)
+
+            ns3.Location_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class CytobandPhysicalLocation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "CytobandPhysicalLocation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.CytobandPhysicalLocation_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Cytoband",lazy=True)(pname="cytoband", aname="_cytoband", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.PhysicalLocation_Def not in ns3.CytobandPhysicalLocation_Def.__bases__:
+                bases = list(ns3.CytobandPhysicalLocation_Def.__bases__)
+                bases.insert(0, ns3.PhysicalLocation_Def)
+                ns3.CytobandPhysicalLocation_Def.__bases__ = tuple(bases)
+
+            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class ProteinAlias_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "ProteinAlias")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.ProteinAlias_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="proteinCollection", aname="_proteinCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._id = None
+                    self._name = None
+                    self._proteinCollection = None
+                    return
+            Holder.__name__ = "ProteinAlias_Holder"
+            self.pyclass = Holder
+
+    class PopulationFrequency_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "PopulationFrequency")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.PopulationFrequency_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","SNP",lazy=True)(pname="SNP", aname="_SNP", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="ethnicity", aname="_ethnicity", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.FPdouble(pname="heterozygousFrequency", aname="_heterozygousFrequency", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="majorAllele", aname="_majorAllele", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.FPdouble(pname="majorFrequency", aname="_majorFrequency", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="minorAllele", aname="_minorAllele", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.FPdouble(pname="minorFrequency", aname="_minorFrequency", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._SNP = None
+                    self._bigid = None
+                    self._ethnicity = None
+                    self._heterozygousFrequency = None
+                    self._id = None
+                    self._majorAllele = None
+                    self._majorFrequency = None
+                    self._minorAllele = None
+                    self._minorFrequency = None
+                    self._type = None
+                    return
+            Holder.__name__ = "PopulationFrequency_Holder"
+            self.pyclass = Holder
+
+    class OrganOntologyRelationship_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "OrganOntologyRelationship")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.OrganOntologyRelationship_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","OrganOntology",lazy=True)(pname="childOrganOntology", aname="_childOrganOntology", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","OrganOntology",lazy=True)(pname="parentOrganOntology", aname="_parentOrganOntology", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._childOrganOntology = None
+                    self._id = None
+                    self._parentOrganOntology = None
+                    self._type = None
+                    return
+            Holder.__name__ = "OrganOntologyRelationship_Holder"
+            self.pyclass = Holder
+
+    class Evidence_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "Evidence")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.Evidence_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="celllineStatus", aname="_celllineStatus", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="comments", aname="_comments", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="evidenceCodeCollection", aname="_evidenceCodeCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneFunctionAssociationCollection", aname="_geneFunctionAssociationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="interactionCollection", aname="_interactionCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="negationStatus", aname="_negationStatus", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="pubmedId", aname="_pubmedId", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="sentence", aname="_sentence", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="sentenceStatus", aname="_sentenceStatus", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._celllineStatus = None
+                    self._comments = None
+                    self._evidenceCodeCollection = None
+                    self._geneFunctionAssociationCollection = None
+                    self._id = None
+                    self._interactionCollection = None
+                    self._negationStatus = None
+                    self._pubmedId = None
+                    self._sentence = None
+                    self._sentenceStatus = None
+                    return
+            Holder.__name__ = "Evidence_Holder"
+            self.pyclass = Holder
+
+    class GeneFunctionAssociation_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "GeneFunctionAssociation")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.GeneFunctionAssociation_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Evidence",lazy=True)(pname="evidence", aname="_evidence", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="gene", aname="_gene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="role", aname="_role", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._evidence = None
+                    self._gene = None
+                    self._id = None
+                    self._role = None
+                    return
+            Holder.__name__ = "GeneFunctionAssociation_Holder"
+            self.pyclass = Holder
+
+    class MarkerAlias_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "MarkerAlias")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.MarkerAlias_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="markerCollection", aname="_markerCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._id = None
+                    self._markerCollection = None
+                    self._name = None
+                    return
+            Holder.__name__ = "MarkerAlias_Holder"
+            self.pyclass = Holder
+
+    class Vocabulary_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "Vocabulary")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.Vocabulary_Def.schema
+            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="anomalyCollection", aname="_anomalyCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="coreTerm", aname="_coreTerm", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="generalTerm", aname="_generalTerm", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._anomalyCollection = None
+                    self._bigid = None
+                    self._coreTerm = None
+                    self._generalTerm = None
+                    self._id = None
+                    return
+            Holder.__name__ = "Vocabulary_Holder"
+            self.pyclass = Holder
+
+    class HomologousAssociation_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "HomologousAssociation")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.HomologousAssociation_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="gene", aname="_gene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="homologousGene", aname="_homologousGene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.FPfloat(pname="similarityPercentage", aname="_similarityPercentage", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._gene = None
+                    self._homologousGene = None
+                    self._id = None
+                    self._similarityPercentage = None
+                    return
+            Holder.__name__ = "HomologousAssociation_Holder"
+            self.pyclass = Holder
+
+    class GeneCytogeneticLocation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "GeneCytogeneticLocation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.GeneCytogeneticLocation_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="gene", aname="_gene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.CytogeneticLocation_Def not in ns3.GeneCytogeneticLocation_Def.__bases__:
+                bases = list(ns3.GeneCytogeneticLocation_Def.__bases__)
+                bases.insert(0, ns3.CytogeneticLocation_Def)
+                ns3.GeneCytogeneticLocation_Def.__bases__ = tuple(bases)
+
+            ns3.CytogeneticLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class ProteinSequence_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "ProteinSequence")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.ProteinSequence_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="checkSum", aname="_checkSum", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="length", aname="_length", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.FPdouble(pname="molecularWeightInDaltons", aname="_molecularWeightInDaltons", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Protein",lazy=True)(pname="protein", aname="_protein", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="value", aname="_value", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._checkSum = None
+                    self._id = None
+                    self._length = None
+                    self._molecularWeightInDaltons = None
+                    self._protein = None
+                    self._value = None
+                    return
+            Holder.__name__ = "ProteinSequence_Holder"
+            self.pyclass = Holder
+
+    class Agent_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "Agent")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.Agent_Def.schema
+            TClist = [ZSI.TC.String(pname="EVSId", aname="_EVSId", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="NSCNumber", aname="_NSCNumber", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="clinicalTrialProtocolCollection", aname="_clinicalTrialProtocolCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="comment", aname="_comment", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneFunctionAssociationCollection", aname="_geneFunctionAssociationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.Boolean(pname="isCMAPAgent", aname="_isCMAPAgent", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="pathwayEntityCollection", aname="_pathwayEntityCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="source", aname="_source", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="targetCollection", aname="_targetCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._EVSId = None
+                    self._NSCNumber = None
+                    self._bigid = None
+                    self._clinicalTrialProtocolCollection = None
+                    self._comment = None
+                    self._geneFunctionAssociationCollection = None
+                    self._id = None
+                    self._isCMAPAgent = None
+                    self._name = None
+                    self._pathwayEntityCollection = None
+                    self._source = None
+                    self._targetCollection = None
+                    return
+            Holder.__name__ = "Agent_Holder"
+            self.pyclass = Holder
+
+    class GeneAgentAssociation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "GeneAgentAssociation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.GeneAgentAssociation_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Agent",lazy=True)(pname="agent", aname="_agent", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.GeneFunctionAssociation_Def not in ns3.GeneAgentAssociation_Def.__bases__:
+                bases = list(ns3.GeneAgentAssociation_Def.__bases__)
+                bases.insert(0, ns3.GeneFunctionAssociation_Def)
+                ns3.GeneAgentAssociation_Def.__bases__ = tuple(bases)
+
+            ns3.GeneFunctionAssociation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class Marker_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "Marker")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.Marker_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="geneticMarkerId", aname="_geneticMarkerId", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="markerAliasCollection", aname="_markerAliasCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="markerRelativeLocationCollection", aname="_markerRelativeLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="physicalLocationCollection", aname="_physicalLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Taxon",lazy=True)(pname="taxon", aname="_taxon", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._geneCollection = None
+                    self._geneticMarkerId = None
+                    self._id = None
+                    self._markerAliasCollection = None
+                    self._markerRelativeLocationCollection = None
+                    self._name = None
+                    self._physicalLocationCollection = None
+                    self._taxon = None
+                    self._type = None
+                    return
+            Holder.__name__ = "Marker_Holder"
+            self.pyclass = Holder
+
+    class ArrayReporterPhysicalLocation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "ArrayReporterPhysicalLocation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.ArrayReporterPhysicalLocation_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","ArrayReporter",lazy=True)(pname="arrayReporter", aname="_arrayReporter", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.PhysicalLocation_Def not in ns3.ArrayReporterPhysicalLocation_Def.__bases__:
+                bases = list(ns3.ArrayReporterPhysicalLocation_Def.__bases__)
+                bases.insert(0, ns3.PhysicalLocation_Def)
+                ns3.ArrayReporterPhysicalLocation_Def.__bases__ = tuple(bases)
+
+            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class EvidenceCode_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "EvidenceCode")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.EvidenceCode_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="evidenceCode", aname="_evidenceCode", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="evidenceCollection", aname="_evidenceCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="interactionCollection", aname="_interactionCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._evidenceCode = None
+                    self._evidenceCollection = None
+                    self._id = None
+                    self._interactionCollection = None
+                    return
+            Holder.__name__ = "EvidenceCode_Holder"
+            self.pyclass = Holder
+
+    class RelativeLocation_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "RelativeLocation")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.RelativeLocation_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","SNP",lazy=True)(pname="SNP", aname="_SNP", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="distance", aname="_distance", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="orientation", aname="_orientation", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._SNP = None
+                    self._bigid = None
+                    self._distance = None
+                    self._id = None
+                    self._orientation = None
+                    return
+            Holder.__name__ = "RelativeLocation_Holder"
+            self.pyclass = Holder
+
+    class GeneRelativeLocation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "GeneRelativeLocation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.GeneRelativeLocation_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="gene", aname="_gene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.RelativeLocation_Def not in ns3.GeneRelativeLocation_Def.__bases__:
+                bases = list(ns3.GeneRelativeLocation_Def.__bases__)
+                bases.insert(0, ns3.RelativeLocation_Def)
+                ns3.GeneRelativeLocation_Def.__bases__ = tuple(bases)
+
+            ns3.RelativeLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class SNPPhysicalLocation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "SNPPhysicalLocation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.SNPPhysicalLocation_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","SNP",lazy=True)(pname="SNP", aname="_SNP", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.PhysicalLocation_Def not in ns3.SNPPhysicalLocation_Def.__bases__:
+                bases = list(ns3.SNPPhysicalLocation_Def.__bases__)
+                bases.insert(0, ns3.PhysicalLocation_Def)
+                ns3.SNPPhysicalLocation_Def.__bases__ = tuple(bases)
+
+            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class GeneDiseaseAssociation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "GeneDiseaseAssociation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.GeneDiseaseAssociation_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","DiseaseOntology",lazy=True)(pname="diseaseOntology", aname="_diseaseOntology", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.GeneFunctionAssociation_Def not in ns3.GeneDiseaseAssociation_Def.__bases__:
+                bases = list(ns3.GeneDiseaseAssociation_Def.__bases__)
+                bases.insert(0, ns3.GeneFunctionAssociation_Def)
+                ns3.GeneDiseaseAssociation_Def.__bases__ = tuple(bases)
+
+            ns3.GeneFunctionAssociation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class TranscriptPhysicalLocation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "TranscriptPhysicalLocation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.TranscriptPhysicalLocation_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Transcript",lazy=True)(pname="transcript", aname="_transcript", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.PhysicalLocation_Def not in ns3.TranscriptPhysicalLocation_Def.__bases__:
+                bases = list(ns3.TranscriptPhysicalLocation_Def.__bases__)
+                bases.insert(0, ns3.PhysicalLocation_Def)
+                ns3.TranscriptPhysicalLocation_Def.__bases__ = tuple(bases)
+
+            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class GeneOntology_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "GeneOntology")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.GeneOntology_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="childGeneOntologyRelationshipCollection", aname="_childGeneOntologyRelationshipCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="parentGeneOntologyRelationshipCollection", aname="_parentGeneOntologyRelationshipCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._childGeneOntologyRelationshipCollection = None
+                    self._geneCollection = None
+                    self._id = None
+                    self._name = None
+                    self._parentGeneOntologyRelationshipCollection = None
+                    return
+            Holder.__name__ = "GeneOntology_Holder"
+            self.pyclass = Holder
+
+    class MarkerRelativeLocation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "MarkerRelativeLocation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.MarkerRelativeLocation_Def.schema
+            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="markerCollection", aname="_markerCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.RelativeLocation_Def not in ns3.MarkerRelativeLocation_Def.__bases__:
+                bases = list(ns3.MarkerRelativeLocation_Def.__bases__)
+                bases.insert(0, ns3.RelativeLocation_Def)
+                ns3.MarkerRelativeLocation_Def.__bases__ = tuple(bases)
+
+            ns3.RelativeLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class GeneAlias_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "GeneAlias")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.GeneAlias_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._geneCollection = None
+                    self._id = None
+                    self._name = None
+                    self._type = None
+                    return
+            Holder.__name__ = "GeneAlias_Holder"
+            self.pyclass = Holder
+
+    class MarkerPhysicalLocation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "MarkerPhysicalLocation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.MarkerPhysicalLocation_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Marker",lazy=True)(pname="marker", aname="_marker", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.PhysicalLocation_Def not in ns3.MarkerPhysicalLocation_Def.__bases__:
+                bases = list(ns3.MarkerPhysicalLocation_Def.__bases__)
+                bases.insert(0, ns3.PhysicalLocation_Def)
+                ns3.MarkerPhysicalLocation_Def.__bases__ = tuple(bases)
+
+            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
     class Anomaly_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.cabio.nci.nih.gov"
         type = (schema, "Anomaly")
@@ -1072,114 +1636,6 @@ class ns3:
             Holder.__name__ = "ClinicalTrialProtocol_Holder"
             self.pyclass = Holder
 
-    class ProtocolAssociation_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "ProtocolAssociation")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.ProtocolAssociation_Def.schema
-            TClist = [ZSI.TC.String(pname="CTEPNAME", aname="_CTEPNAME", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="IMTCODE", aname="_IMTCODE", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","ClinicalTrialProtocol",lazy=True)(pname="clinicalTrialProtocol", aname="_clinicalTrialProtocol", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="diseaseCategory", aname="_diseaseCategory", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="diseaseSubCategory", aname="_diseaseSubCategory", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._CTEPNAME = None
-                    self._IMTCODE = None
-                    self._bigid = None
-                    self._clinicalTrialProtocol = None
-                    self._diseaseCategory = None
-                    self._diseaseSubCategory = None
-                    self._id = None
-                    return
-            Holder.__name__ = "ProtocolAssociation_Holder"
-            self.pyclass = Holder
-
-    class Protein_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "Protein")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.Protein_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="copyrightStatement", aname="_copyrightStatement", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="keywords", aname="_keywords", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="primaryAccession", aname="_primaryAccession", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="proteinAliasCollection", aname="_proteinAliasCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="proteinSequence", aname="_proteinSequence", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="secondaryAccession", aname="_secondaryAccession", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="taxonCollection", aname="_taxonCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="uniProtCode", aname="_uniProtCode", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._copyrightStatement = None
-                    self._geneCollection = None
-                    self._id = None
-                    self._keywords = None
-                    self._name = None
-                    self._primaryAccession = None
-                    self._proteinAliasCollection = None
-                    self._proteinSequence = None
-                    self._secondaryAccession = None
-                    self._taxonCollection = None
-                    self._uniProtCode = None
-                    return
-            Holder.__name__ = "Protein_Holder"
-            self.pyclass = Holder
-
-    class ProteinSequence_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "ProteinSequence")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.ProteinSequence_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="checkSum", aname="_checkSum", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="length", aname="_length", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.FPdouble(pname="molecularWeightInDaltons", aname="_molecularWeightInDaltons", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Protein",lazy=True)(pname="protein", aname="_protein", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="value", aname="_value", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._checkSum = None
-                    self._id = None
-                    self._length = None
-                    self._molecularWeightInDaltons = None
-                    self._protein = None
-                    self._value = None
-                    return
-            Holder.__name__ = "ProteinSequence_Holder"
-            self.pyclass = Holder
-
-    class GeneOntology_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "GeneOntology")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.GeneOntology_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="childGeneOntologyRelationshipCollection", aname="_childGeneOntologyRelationshipCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="parentGeneOntologyRelationshipCollection", aname="_parentGeneOntologyRelationshipCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._childGeneOntologyRelationshipCollection = None
-                    self._geneCollection = None
-                    self._id = None
-                    self._name = None
-                    self._parentGeneOntologyRelationshipCollection = None
-                    return
-            Holder.__name__ = "GeneOntology_Holder"
-            self.pyclass = Holder
-
     class GeneOntologyRelationship_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.cabio.nci.nih.gov"
         type = (schema, "GeneOntologyRelationship")
@@ -1204,158 +1660,6 @@ class ns3:
             Holder.__name__ = "GeneOntologyRelationship_Holder"
             self.pyclass = Holder
 
-    class Evidence_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "Evidence")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.Evidence_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="celllineStatus", aname="_celllineStatus", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="comments", aname="_comments", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="evidenceCodeCollection", aname="_evidenceCodeCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneFunctionAssociationCollection", aname="_geneFunctionAssociationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="negationStatus", aname="_negationStatus", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="pubmedId", aname="_pubmedId", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="sentence", aname="_sentence", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="sentenceStatus", aname="_sentenceStatus", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._celllineStatus = None
-                    self._comments = None
-                    self._evidenceCodeCollection = None
-                    self._geneFunctionAssociationCollection = None
-                    self._id = None
-                    self._negationStatus = None
-                    self._pubmedId = None
-                    self._sentence = None
-                    self._sentenceStatus = None
-                    return
-            Holder.__name__ = "Evidence_Holder"
-            self.pyclass = Holder
-
-    class GeneFunctionAssociation_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "GeneFunctionAssociation")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.GeneFunctionAssociation_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Evidence",lazy=True)(pname="evidence", aname="_evidence", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="gene", aname="_gene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="role", aname="_role", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._evidence = None
-                    self._gene = None
-                    self._id = None
-                    self._role = None
-                    return
-            Holder.__name__ = "GeneFunctionAssociation_Holder"
-            self.pyclass = Holder
-
-    class GeneDiseaseAssociation_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "GeneDiseaseAssociation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.GeneDiseaseAssociation_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","DiseaseOntology",lazy=True)(pname="diseaseOntology", aname="_diseaseOntology", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.GeneFunctionAssociation_Def not in ns3.GeneDiseaseAssociation_Def.__bases__:
-                bases = list(ns3.GeneDiseaseAssociation_Def.__bases__)
-                bases.insert(0, ns3.GeneFunctionAssociation_Def)
-                ns3.GeneDiseaseAssociation_Def.__bases__ = tuple(bases)
-
-            ns3.GeneFunctionAssociation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class MarkerAlias_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "MarkerAlias")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.MarkerAlias_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="markerCollection", aname="_markerCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._id = None
-                    self._markerCollection = None
-                    self._name = None
-                    return
-            Holder.__name__ = "MarkerAlias_Holder"
-            self.pyclass = Holder
-
-    class PopulationFrequency_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "PopulationFrequency")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.PopulationFrequency_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","SNP",lazy=True)(pname="SNP", aname="_SNP", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="ethnicity", aname="_ethnicity", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.FPdouble(pname="heterozygousFrequency", aname="_heterozygousFrequency", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="majorAllele", aname="_majorAllele", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.FPdouble(pname="majorFrequency", aname="_majorFrequency", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="minorAllele", aname="_minorAllele", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.FPdouble(pname="minorFrequency", aname="_minorFrequency", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._SNP = None
-                    self._bigid = None
-                    self._ethnicity = None
-                    self._heterozygousFrequency = None
-                    self._id = None
-                    self._majorAllele = None
-                    self._majorFrequency = None
-                    self._minorAllele = None
-                    self._minorFrequency = None
-                    self._type = None
-                    return
-            Holder.__name__ = "PopulationFrequency_Holder"
-            self.pyclass = Holder
-
-    class Agent_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "Agent")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.Agent_Def.schema
-            TClist = [ZSI.TC.String(pname="EVSId", aname="_EVSId", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="NSCNumber", aname="_NSCNumber", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="clinicalTrialProtocolCollection", aname="_clinicalTrialProtocolCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="comment", aname="_comment", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneFunctionAssociationCollection", aname="_geneFunctionAssociationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.Boolean(pname="isCMAPAgent", aname="_isCMAPAgent", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="source", aname="_source", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="targetCollection", aname="_targetCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._EVSId = None
-                    self._NSCNumber = None
-                    self._bigid = None
-                    self._clinicalTrialProtocolCollection = None
-                    self._comment = None
-                    self._geneFunctionAssociationCollection = None
-                    self._id = None
-                    self._isCMAPAgent = None
-                    self._name = None
-                    self._source = None
-                    self._targetCollection = None
-                    return
-            Holder.__name__ = "Agent_Holder"
-            self.pyclass = Holder
-
     class NucleicAcidPhysicalLocation_Def(TypeDefinition):
         #complexType/complexContent extension
         schema = "urn:domain.cabio.nci.nih.gov"
@@ -1373,12 +1677,12 @@ class ns3:
 
             ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
 
-    class OrganOntologyRelationship_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+    class ProtocolAssociation_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "OrganOntologyRelationship")
+        type = (schema, "ProtocolAssociation")
         def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.OrganOntologyRelationship_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","OrganOntology",lazy=True)(pname="childOrganOntology", aname="_childOrganOntology", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","OrganOntology",lazy=True)(pname="parentOrganOntology", aname="_parentOrganOntology", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            ns = ns3.ProtocolAssociation_Def.schema
+            TClist = [ZSI.TC.String(pname="CTEPNAME", aname="_CTEPNAME", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="IMTCODE", aname="_IMTCODE", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","ClinicalTrialProtocol",lazy=True)(pname="clinicalTrialProtocol", aname="_clinicalTrialProtocol", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="diseaseCategory", aname="_diseaseCategory", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="diseaseSubCategory", aname="_diseaseSubCategory", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
             if restrict: TClist = ofwhat
@@ -1388,329 +1692,15 @@ class ns3:
                 typecode = self
                 def __init__(self):
                     # pyclass
+                    self._CTEPNAME = None
+                    self._IMTCODE = None
                     self._bigid = None
-                    self._childOrganOntology = None
-                    self._id = None
-                    self._parentOrganOntology = None
-                    self._type = None
-                    return
-            Holder.__name__ = "OrganOntologyRelationship_Holder"
-            self.pyclass = Holder
-
-    class SNPPhysicalLocation_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "SNPPhysicalLocation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.SNPPhysicalLocation_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","SNP",lazy=True)(pname="SNP", aname="_SNP", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.PhysicalLocation_Def not in ns3.SNPPhysicalLocation_Def.__bases__:
-                bases = list(ns3.SNPPhysicalLocation_Def.__bases__)
-                bases.insert(0, ns3.PhysicalLocation_Def)
-                ns3.SNPPhysicalLocation_Def.__bases__ = tuple(bases)
-
-            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class Target_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "Target")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.Target_Def.schema
-            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="agentCollection", aname="_agentCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="anomalyCollection", aname="_anomalyCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._agentCollection = None
-                    self._anomalyCollection = None
-                    self._bigid = None
-                    self._geneCollection = None
-                    self._id = None
-                    self._name = None
-                    self._type = None
-                    return
-            Holder.__name__ = "Target_Holder"
-            self.pyclass = Holder
-
-    class Vocabulary_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "Vocabulary")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.Vocabulary_Def.schema
-            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="anomalyCollection", aname="_anomalyCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="coreTerm", aname="_coreTerm", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="generalTerm", aname="_generalTerm", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._anomalyCollection = None
-                    self._bigid = None
-                    self._coreTerm = None
-                    self._generalTerm = None
+                    self._clinicalTrialProtocol = None
+                    self._diseaseCategory = None
+                    self._diseaseSubCategory = None
                     self._id = None
                     return
-            Holder.__name__ = "Vocabulary_Holder"
-            self.pyclass = Holder
-
-    class Marker_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "Marker")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.Marker_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="geneticMarkerId", aname="_geneticMarkerId", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="markerAliasCollection", aname="_markerAliasCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="markerRelativeLocationCollection", aname="_markerRelativeLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="physicalLocationCollection", aname="_physicalLocationCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Taxon",lazy=True)(pname="taxon", aname="_taxon", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._geneCollection = None
-                    self._geneticMarkerId = None
-                    self._id = None
-                    self._markerAliasCollection = None
-                    self._markerRelativeLocationCollection = None
-                    self._name = None
-                    self._physicalLocationCollection = None
-                    self._taxon = None
-                    self._type = None
-                    return
-            Holder.__name__ = "Marker_Holder"
-            self.pyclass = Holder
-
-    class GeneAlias_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "GeneAlias")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.GeneAlias_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="geneCollection", aname="_geneCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._geneCollection = None
-                    self._id = None
-                    self._name = None
-                    self._type = None
-                    return
-            Holder.__name__ = "GeneAlias_Holder"
-            self.pyclass = Holder
-
-    class DiseaseOntologyRelationship_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "DiseaseOntologyRelationship")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.DiseaseOntologyRelationship_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","DiseaseOntology",lazy=True)(pname="childDiseaseOntology", aname="_childDiseaseOntology", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","DiseaseOntology",lazy=True)(pname="parentDiseaseOntology", aname="_parentDiseaseOntology", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._childDiseaseOntology = None
-                    self._id = None
-                    self._parentDiseaseOntology = None
-                    self._type = None
-                    return
-            Holder.__name__ = "DiseaseOntologyRelationship_Holder"
-            self.pyclass = Holder
-
-    class GeneRelativeLocation_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "GeneRelativeLocation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.GeneRelativeLocation_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="gene", aname="_gene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.RelativeLocation_Def not in ns3.GeneRelativeLocation_Def.__bases__:
-                bases = list(ns3.GeneRelativeLocation_Def.__bases__)
-                bases.insert(0, ns3.RelativeLocation_Def)
-                ns3.GeneRelativeLocation_Def.__bases__ = tuple(bases)
-
-            ns3.RelativeLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class GeneAgentAssociation_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "GeneAgentAssociation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.GeneAgentAssociation_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Agent",lazy=True)(pname="agent", aname="_agent", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.GeneFunctionAssociation_Def not in ns3.GeneAgentAssociation_Def.__bases__:
-                bases = list(ns3.GeneAgentAssociation_Def.__bases__)
-                bases.insert(0, ns3.GeneFunctionAssociation_Def)
-                ns3.GeneAgentAssociation_Def.__bases__ = tuple(bases)
-
-            ns3.GeneFunctionAssociation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class GeneCytogeneticLocation_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "GeneCytogeneticLocation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.GeneCytogeneticLocation_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="gene", aname="_gene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.CytogeneticLocation_Def not in ns3.GeneCytogeneticLocation_Def.__bases__:
-                bases = list(ns3.GeneCytogeneticLocation_Def.__bases__)
-                bases.insert(0, ns3.CytogeneticLocation_Def)
-                ns3.GeneCytogeneticLocation_Def.__bases__ = tuple(bases)
-
-            ns3.CytogeneticLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class ProteinAlias_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "ProteinAlias")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.ProteinAlias_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="proteinCollection", aname="_proteinCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._id = None
-                    self._name = None
-                    self._proteinCollection = None
-                    return
-            Holder.__name__ = "ProteinAlias_Holder"
-            self.pyclass = Holder
-
-    class MarkerPhysicalLocation_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "MarkerPhysicalLocation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.MarkerPhysicalLocation_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Marker",lazy=True)(pname="marker", aname="_marker", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.PhysicalLocation_Def not in ns3.MarkerPhysicalLocation_Def.__bases__:
-                bases = list(ns3.MarkerPhysicalLocation_Def.__bases__)
-                bases.insert(0, ns3.PhysicalLocation_Def)
-                ns3.MarkerPhysicalLocation_Def.__bases__ = tuple(bases)
-
-            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class CytobandPhysicalLocation_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "CytobandPhysicalLocation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.CytobandPhysicalLocation_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Cytoband",lazy=True)(pname="cytoband", aname="_cytoband", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.PhysicalLocation_Def not in ns3.CytobandPhysicalLocation_Def.__bases__:
-                bases = list(ns3.CytobandPhysicalLocation_Def.__bases__)
-                bases.insert(0, ns3.PhysicalLocation_Def)
-                ns3.CytobandPhysicalLocation_Def.__bases__ = tuple(bases)
-
-            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class ArrayReporterCytogeneticLocation_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "ArrayReporterCytogeneticLocation")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns3.ArrayReporterCytogeneticLocation_Def.schema
-            TClist = [GTD("urn:domain.cabio.nci.nih.gov","ArrayReporter",lazy=True)(pname="arrayReporter", aname="_arrayReporter", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns3.CytogeneticLocation_Def not in ns3.ArrayReporterCytogeneticLocation_Def.__bases__:
-                bases = list(ns3.ArrayReporterCytogeneticLocation_Def.__bases__)
-                bases.insert(0, ns3.CytogeneticLocation_Def)
-                ns3.ArrayReporterCytogeneticLocation_Def.__bases__ = tuple(bases)
-
-            ns3.CytogeneticLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class EvidenceCode_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "EvidenceCode")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.EvidenceCode_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="evidenceCode", aname="_evidenceCode", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="evidenceCollection", aname="_evidenceCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._evidenceCode = None
-                    self._evidenceCollection = None
-                    self._id = None
-                    return
-            Holder.__name__ = "EvidenceCode_Holder"
-            self.pyclass = Holder
-
-    class HomologousAssociation_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
-        schema = "urn:domain.cabio.nci.nih.gov"
-        type = (schema, "HomologousAssociation")
-        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns3.HomologousAssociation_Def.schema
-            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="gene", aname="_gene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="homologousGene", aname="_homologousGene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.FPfloat(pname="similarityPercentage", aname="_similarityPercentage", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
-            class Holder:
-                __metaclass__ = pyclass_type
-                typecode = self
-                def __init__(self):
-                    # pyclass
-                    self._bigid = None
-                    self._gene = None
-                    self._homologousGene = None
-                    self._id = None
-                    self._similarityPercentage = None
-                    return
-            Holder.__name__ = "HomologousAssociation_Holder"
+            Holder.__name__ = "ProtocolAssociation_Holder"
             self.pyclass = Holder
 
     class ProteinDomain_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
@@ -1738,21 +1728,476 @@ class ns3:
             Holder.__name__ = "ProteinDomain_Holder"
             self.pyclass = Holder
 
+    class GenePhysicalLocation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "GenePhysicalLocation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns3.GenePhysicalLocation_Def.schema
+            TClist = [ZSI.TC.String(pname="featureType", aname="_featureType", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="gene", aname="_gene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns3.PhysicalLocation_Def not in ns3.GenePhysicalLocation_Def.__bases__:
+                bases = list(ns3.GenePhysicalLocation_Def.__bases__)
+                bases.insert(0, ns3.PhysicalLocation_Def)
+                ns3.GenePhysicalLocation_Def.__bases__ = tuple(bases)
+
+            ns3.PhysicalLocation_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class DiseaseOntologyRelationship_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:domain.cabio.nci.nih.gov"
+        type = (schema, "DiseaseOntologyRelationship")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns3.DiseaseOntologyRelationship_Def.schema
+            TClist = [ZSI.TC.String(pname="bigid", aname="_bigid", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","DiseaseOntology",lazy=True)(pname="childDiseaseOntology", aname="_childDiseaseOntology", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","DiseaseOntology",lazy=True)(pname="parentDiseaseOntology", aname="_parentDiseaseOntology", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._bigid = None
+                    self._childDiseaseOntology = None
+                    self._id = None
+                    self._parentDiseaseOntology = None
+                    self._type = None
+                    return
+            Holder.__name__ = "DiseaseOntologyRelationship_Holder"
+            self.pyclass = Holder
+
 # end class ns3 (tns: urn:domain.cabio.nci.nih.gov)
+
+##############################
+# targetNamespace
+# urn:pathways.cabio.nci.nih.gov
+##############################
+
+class ns4:
+    targetNamespace = "urn:pathways.cabio.nci.nih.gov"
+
+    class Interaction_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "Interaction")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns4.Interaction_Def.schema
+            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="evidenceCodeCollection", aname="_evidenceCodeCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="participantCollection", aname="_participantCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="pathwayCollection", aname="_pathwayCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="referenceCollection", aname="_referenceCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="source", aname="_source", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._evidenceCodeCollection = None
+                    self._id = None
+                    self._participantCollection = None
+                    self._pathwayCollection = None
+                    self._referenceCollection = None
+                    self._source = None
+                    return
+            Holder.__name__ = "Interaction_Holder"
+            self.pyclass = Holder
+
+    class PathwayReference_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "PathwayReference")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.PathwayReference_Def.schema
+            TClist = [GTD("urn:domain.cabio.nci.nih.gov","Pathway",lazy=True)(pname="pathway", aname="_pathway", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.Interaction_Def not in ns4.PathwayReference_Def.__bases__:
+                bases = list(ns4.PathwayReference_Def.__bases__)
+                bases.insert(0, ns4.Interaction_Def)
+                ns4.PathwayReference_Def.__bases__ = tuple(bases)
+
+            ns4.Interaction_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class Macroprocess_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "Macroprocess")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.Macroprocess_Def.schema
+            TClist = [ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.Interaction_Def not in ns4.Macroprocess_Def.__bases__:
+                bases = list(ns4.Macroprocess_Def.__bases__)
+                bases.insert(0, ns4.Interaction_Def)
+                ns4.Macroprocess_Def.__bases__ = tuple(bases)
+
+            ns4.Interaction_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class GeneRegulation_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "GeneRegulation")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.GeneRegulation_Def.schema
+            TClist = []
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.Interaction_Def not in ns4.GeneRegulation_Def.__bases__:
+                bases = list(ns4.GeneRegulation_Def.__bases__)
+                bases.insert(0, ns4.Interaction_Def)
+                ns4.GeneRegulation_Def.__bases__ = tuple(bases)
+
+            ns4.Interaction_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class BiochemicalReaction_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "BiochemicalReaction")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.BiochemicalReaction_Def.schema
+            TClist = []
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.Interaction_Def not in ns4.BiochemicalReaction_Def.__bases__:
+                bases = list(ns4.BiochemicalReaction_Def.__bases__)
+                bases.insert(0, ns4.Interaction_Def)
+                ns4.BiochemicalReaction_Def.__bases__ = tuple(bases)
+
+            ns4.Interaction_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class Participant_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "Participant")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns4.Participant_Def.schema
+            TClist = [ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:pathways.cabio.nci.nih.gov","Interaction",lazy=True)(pname="interaction", aname="_interaction", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._id = None
+                    self._interaction = None
+                    return
+            Holder.__name__ = "Participant_Holder"
+            self.pyclass = Holder
+
+    class PhysicalEntity_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "PhysicalEntity")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns4.PhysicalEntity_Def.schema
+            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="entityAccessionCollection", aname="_entityAccessionCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="entityNameCollection", aname="_entityNameCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="memberCollection", aname="_memberCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="physicalParticipantCollection", aname="_physicalParticipantCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._entityAccessionCollection = None
+                    self._entityNameCollection = None
+                    self._id = None
+                    self._memberCollection = None
+                    self._physicalParticipantCollection = None
+                    return
+            Holder.__name__ = "PhysicalEntity_Holder"
+            self.pyclass = Holder
+
+    class SmallMoleculeEntity_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "SmallMoleculeEntity")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.SmallMoleculeEntity_Def.schema
+            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="agentCollection", aname="_agentCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.PhysicalEntity_Def not in ns4.SmallMoleculeEntity_Def.__bases__:
+                bases = list(ns4.SmallMoleculeEntity_Def.__bases__)
+                bases.insert(0, ns4.PhysicalEntity_Def)
+                ns4.SmallMoleculeEntity_Def.__bases__ = tuple(bases)
+
+            ns4.PhysicalEntity_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class ProteinEntity_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "ProteinEntity")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.ProteinEntity_Def.schema
+            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="proteinCollection", aname="_proteinCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="subunitCollection", aname="_subunitCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.PhysicalEntity_Def not in ns4.ProteinEntity_Def.__bases__:
+                bases = list(ns4.ProteinEntity_Def.__bases__)
+                bases.insert(0, ns4.PhysicalEntity_Def)
+                ns4.ProteinEntity_Def.__bases__ = tuple(bases)
+
+            ns4.PhysicalEntity_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class ProteinSubunit_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "ProteinSubunit")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.ProteinSubunit_Def.schema
+            TClist = [ZSI.TCnumbers.Ilong(pname="startPosition", aname="_startPosition", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="stopPosition", aname="_stopPosition", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:pathways.cabio.nci.nih.gov","ProteinEntity",lazy=True)(pname="whole", aname="_whole", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.ProteinEntity_Def not in ns4.ProteinSubunit_Def.__bases__:
+                bases = list(ns4.ProteinSubunit_Def.__bases__)
+                bases.insert(0, ns4.ProteinEntity_Def)
+                ns4.ProteinSubunit_Def.__bases__ = tuple(bases)
+
+            ns4.ProteinEntity_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class RNAEntity_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "RNAEntity")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.RNAEntity_Def.schema
+            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="nucleicAcidSequenceCollection", aname="_nucleicAcidSequenceCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.PhysicalEntity_Def not in ns4.RNAEntity_Def.__bases__:
+                bases = list(ns4.RNAEntity_Def.__bases__)
+                bases.insert(0, ns4.PhysicalEntity_Def)
+                ns4.RNAEntity_Def.__bases__ = tuple(bases)
+
+            ns4.PhysicalEntity_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class ComplexEntity_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "ComplexEntity")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.ComplexEntity_Def.schema
+            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="complexComponentCollection", aname="_complexComponentCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.PhysicalEntity_Def not in ns4.ComplexEntity_Def.__bases__:
+                bases = list(ns4.ComplexEntity_Def.__bases__)
+                bases.insert(0, ns4.PhysicalEntity_Def)
+                ns4.ComplexEntity_Def.__bases__ = tuple(bases)
+
+            ns4.PhysicalEntity_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class PhysicalParticipant_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "PhysicalParticipant")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.PhysicalParticipant_Def.schema
+            TClist = [ZSI.TC.String(pname="activityState", aname="_activityState", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="location", aname="_location", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:pathways.cabio.nci.nih.gov","PhysicalEntity",lazy=True)(pname="physicalEntity", aname="_physicalEntity", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="postTranslationalMod", aname="_postTranslationalMod", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.Participant_Def not in ns4.PhysicalParticipant_Def.__bases__:
+                bases = list(ns4.PhysicalParticipant_Def.__bases__)
+                bases.insert(0, ns4.Participant_Def)
+                ns4.PhysicalParticipant_Def.__bases__ = tuple(bases)
+
+            ns4.Participant_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class ComplexComponent_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "ComplexComponent")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.ComplexComponent_Def.schema
+            TClist = [GTD("urn:pathways.cabio.nci.nih.gov","ComplexEntity",lazy=True)(pname="complex", aname="_complex", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.PhysicalParticipant_Def not in ns4.ComplexComponent_Def.__bases__:
+                bases = list(ns4.ComplexComponent_Def.__bases__)
+                bases.insert(0, ns4.PhysicalParticipant_Def)
+                ns4.ComplexComponent_Def.__bases__ = tuple(bases)
+
+            ns4.PhysicalParticipant_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class Condition_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "Condition")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.Condition_Def.schema
+            TClist = [ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.Participant_Def not in ns4.Condition_Def.__bases__:
+                bases = list(ns4.Condition_Def.__bases__)
+                bases.insert(0, ns4.Participant_Def)
+                ns4.Condition_Def.__bases__ = tuple(bases)
+
+            ns4.Participant_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class FamilyMember_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "FamilyMember")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.FamilyMember_Def.schema
+            TClist = [GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="familyCollection", aname="_familyCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.PhysicalParticipant_Def not in ns4.FamilyMember_Def.__bases__:
+                bases = list(ns4.FamilyMember_Def.__bases__)
+                bases.insert(0, ns4.PhysicalParticipant_Def)
+                ns4.FamilyMember_Def.__bases__ = tuple(bases)
+
+            ns4.PhysicalParticipant_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class Input_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "Input")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.Input_Def.schema
+            TClist = []
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.PhysicalParticipant_Def not in ns4.Input_Def.__bases__:
+                bases = list(ns4.Input_Def.__bases__)
+                bases.insert(0, ns4.PhysicalParticipant_Def)
+                ns4.Input_Def.__bases__ = tuple(bases)
+
+            ns4.PhysicalParticipant_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class EntityName_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "EntityName")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns4.EntityName_Def.schema
+            TClist = [ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="physicalEntityCollection", aname="_physicalEntityCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._id = None
+                    self._name = None
+                    self._physicalEntityCollection = None
+                    return
+            Holder.__name__ = "EntityName_Holder"
+            self.pyclass = Holder
+
+    class Output_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "Output")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.Output_Def.schema
+            TClist = []
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.PhysicalParticipant_Def not in ns4.Output_Def.__bases__:
+                bases = list(ns4.Output_Def.__bases__)
+                bases.insert(0, ns4.PhysicalParticipant_Def)
+                ns4.Output_Def.__bases__ = tuple(bases)
+
+            ns4.PhysicalParticipant_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class PositiveControl_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "PositiveControl")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.PositiveControl_Def.schema
+            TClist = []
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.PhysicalParticipant_Def not in ns4.PositiveControl_Def.__bases__:
+                bases = list(ns4.PositiveControl_Def.__bases__)
+                bases.insert(0, ns4.PhysicalParticipant_Def)
+                ns4.PositiveControl_Def.__bases__ = tuple(bases)
+
+            ns4.PhysicalParticipant_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class EntityAccession_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "EntityAccession")
+        def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
+            ns = ns4.EntityAccession_Def.schema
+            TClist = [ZSI.TC.String(pname="accession", aname="_accession", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="database", aname="_database", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="physicalEntityCollection", aname="_physicalEntityCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            ZSI.TCcompound.ComplexType.__init__(self, None, TClist, pname=pname, inorder=0, **kw)
+            class Holder:
+                __metaclass__ = pyclass_type
+                typecode = self
+                def __init__(self):
+                    # pyclass
+                    self._accession = None
+                    self._database = None
+                    self._id = None
+                    self._physicalEntityCollection = None
+                    return
+            Holder.__name__ = "EntityAccession_Holder"
+            self.pyclass = Holder
+
+    class NegativeControl_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:pathways.cabio.nci.nih.gov"
+        type = (schema, "NegativeControl")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns4.NegativeControl_Def.schema
+            TClist = []
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns4.PhysicalParticipant_Def not in ns4.NegativeControl_Def.__bases__:
+                bases = list(ns4.NegativeControl_Def.__bases__)
+                bases.insert(0, ns4.PhysicalParticipant_Def)
+                ns4.NegativeControl_Def.__bases__ = tuple(bases)
+
+            ns4.PhysicalParticipant_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+# end class ns4 (tns: urn:pathways.cabio.nci.nih.gov)
 
 ##############################
 # targetNamespace
 # urn:domain.common.nci.nih.gov
 ##############################
 
-class ns5:
+class ns6:
     targetNamespace = "urn:domain.common.nci.nih.gov"
 
     class DatabaseCrossReference_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.common.nci.nih.gov"
         type = (schema, "DatabaseCrossReference")
         def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns5.DatabaseCrossReference_Def.schema
+            ns = ns6.DatabaseCrossReference_Def.schema
             TClist = [GTD("urn:domain.cabio.nci.nih.gov","SNP",lazy=True)(pname="SNP", aname="_SNP", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="crossReferenceId", aname="_crossReferenceId", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="dataSourceName", aname="_dataSourceName", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","Gene",lazy=True)(pname="gene", aname="_gene", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.cabio.nci.nih.gov","NucleicAcidSequence",lazy=True)(pname="nucleicAcidSequence", aname="_nucleicAcidSequence", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="sourceType", aname="_sourceType", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="summary", aname="_summary", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="type", aname="_type", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
@@ -1776,21 +2221,21 @@ class ns5:
             Holder.__name__ = "DatabaseCrossReference_Holder"
             self.pyclass = Holder
 
-# end class ns5 (tns: urn:domain.common.nci.nih.gov)
+# end class ns6 (tns: urn:domain.common.nci.nih.gov)
 
 ##############################
 # targetNamespace
 # urn:domain.provenance.common.nci.nih.gov
 ##############################
 
-class ns4:
+class ns5:
     targetNamespace = "urn:domain.provenance.common.nci.nih.gov"
 
     class Source_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.provenance.common.nci.nih.gov"
         type = (schema, "Source")
         def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns4.Source_Def.schema
+            ns = ns5.Source_Def.schema
             TClist = [ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="name", aname="_name", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
@@ -1812,57 +2257,23 @@ class ns4:
         schema = "urn:domain.provenance.common.nci.nih.gov"
         type = (schema, "ResearchInstitutionSource")
         def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns4.ResearchInstitutionSource_Def.schema
+            ns = ns5.ResearchInstitutionSource_Def.schema
             TClist = [ZSI.TC.String(pname="institutionAddress", aname="_institutionAddress", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="institutionDepartment", aname="_institutionDepartment", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="institutionName", aname="_institutionName", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="institutionPersons", aname="_institutionPersons", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             attributes = self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
             if restrict: TClist = ofwhat
-            if ns4.Source_Def not in ns4.ResearchInstitutionSource_Def.__bases__:
-                bases = list(ns4.ResearchInstitutionSource_Def.__bases__)
-                bases.insert(0, ns4.Source_Def)
-                ns4.ResearchInstitutionSource_Def.__bases__ = tuple(bases)
+            if ns5.Source_Def not in ns5.ResearchInstitutionSource_Def.__bases__:
+                bases = list(ns5.ResearchInstitutionSource_Def.__bases__)
+                bases.insert(0, ns5.Source_Def)
+                ns5.ResearchInstitutionSource_Def.__bases__ = tuple(bases)
 
-            ns4.Source_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class InternetSource_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.provenance.common.nci.nih.gov"
-        type = (schema, "InternetSource")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns4.InternetSource_Def.schema
-            TClist = [ZSI.TC.String(pname="ownerInstitution", aname="_ownerInstitution", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="ownerPersons", aname="_ownerPersons", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="sourceURI", aname="_sourceURI", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns4.Source_Def not in ns4.InternetSource_Def.__bases__:
-                bases = list(ns4.InternetSource_Def.__bases__)
-                bases.insert(0, ns4.Source_Def)
-                ns4.InternetSource_Def.__bases__ = tuple(bases)
-
-            ns4.Source_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
-
-    class PublicationSource_Def(TypeDefinition):
-        #complexType/complexContent extension
-        schema = "urn:domain.provenance.common.nci.nih.gov"
-        type = (schema, "PublicationSource")
-        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns4.PublicationSource_Def.schema
-            TClist = [ZSI.TC.String(pname="authors", aname="_authors", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="endPage", aname="_endPage", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="startPage", aname="_startPage", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="title", aname="_title", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="volume", aname="_volume", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="year", aname="_year", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
-            attributes = self.attribute_typecode_dict = attributes or {}
-            if extend: TClist += ofwhat
-            if restrict: TClist = ofwhat
-            if ns4.Source_Def not in ns4.PublicationSource_Def.__bases__:
-                bases = list(ns4.PublicationSource_Def.__bases__)
-                bases.insert(0, ns4.Source_Def)
-                ns4.PublicationSource_Def.__bases__ = tuple(bases)
-
-            ns4.Source_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+            ns5.Source_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
 
     class SourceReference_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.provenance.common.nci.nih.gov"
         type = (schema, "SourceReference")
         def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns4.SourceReference_Def.schema
+            ns = ns5.SourceReference_Def.schema
             TClist = [ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("http://webservice.system.nci.nih.gov","ArrayOf_xsd_anyType",lazy=True)(pname="provenanceCollection", aname="_provenanceCollection", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="reference", aname="_reference", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="sourceReferenceType", aname="_sourceReferenceType", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
@@ -1886,40 +2297,74 @@ class ns4:
         schema = "urn:domain.provenance.common.nci.nih.gov"
         type = (schema, "URLSourceReference")
         def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns4.URLSourceReference_Def.schema
+            ns = ns5.URLSourceReference_Def.schema
             TClist = [ZSI.TC.String(pname="sourceURL", aname="_sourceURL", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             attributes = self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
             if restrict: TClist = ofwhat
-            if ns4.SourceReference_Def not in ns4.URLSourceReference_Def.__bases__:
-                bases = list(ns4.URLSourceReference_Def.__bases__)
-                bases.insert(0, ns4.SourceReference_Def)
-                ns4.URLSourceReference_Def.__bases__ = tuple(bases)
+            if ns5.SourceReference_Def not in ns5.URLSourceReference_Def.__bases__:
+                bases = list(ns5.URLSourceReference_Def.__bases__)
+                bases.insert(0, ns5.SourceReference_Def)
+                ns5.URLSourceReference_Def.__bases__ = tuple(bases)
 
-            ns4.SourceReference_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+            ns5.SourceReference_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class PublicationSource_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.provenance.common.nci.nih.gov"
+        type = (schema, "PublicationSource")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns5.PublicationSource_Def.schema
+            TClist = [ZSI.TC.String(pname="authors", aname="_authors", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="endPage", aname="_endPage", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="startPage", aname="_startPage", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="title", aname="_title", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="volume", aname="_volume", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Iint(pname="year", aname="_year", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns5.Source_Def not in ns5.PublicationSource_Def.__bases__:
+                bases = list(ns5.PublicationSource_Def.__bases__)
+                bases.insert(0, ns5.Source_Def)
+                ns5.PublicationSource_Def.__bases__ = tuple(bases)
+
+            ns5.Source_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+
+    class InternetSource_Def(TypeDefinition):
+        #complexType/complexContent extension
+        schema = "urn:domain.provenance.common.nci.nih.gov"
+        type = (schema, "InternetSource")
+        def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
+            ns = ns5.InternetSource_Def.schema
+            TClist = [ZSI.TC.String(pname="ownerInstitution", aname="_ownerInstitution", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="ownerPersons", aname="_ownerPersons", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="sourceURI", aname="_sourceURI", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
+            attributes = self.attribute_typecode_dict = attributes or {}
+            if extend: TClist += ofwhat
+            if restrict: TClist = ofwhat
+            if ns5.Source_Def not in ns5.InternetSource_Def.__bases__:
+                bases = list(ns5.InternetSource_Def.__bases__)
+                bases.insert(0, ns5.Source_Def)
+                ns5.InternetSource_Def.__bases__ = tuple(bases)
+
+            ns5.Source_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
 
     class WebServicesSourceReference_Def(TypeDefinition):
         #complexType/complexContent extension
         schema = "urn:domain.provenance.common.nci.nih.gov"
         type = (schema, "WebServicesSourceReference")
         def __init__(self, pname, ofwhat=(), extend=False, restrict=False, attributes=None, **kw):
-            ns = ns4.WebServicesSourceReference_Def.schema
+            ns = ns5.WebServicesSourceReference_Def.schema
             TClist = [ZSI.TC.String(pname="request", aname="_request", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             attributes = self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
             if restrict: TClist = ofwhat
-            if ns4.SourceReference_Def not in ns4.WebServicesSourceReference_Def.__bases__:
-                bases = list(ns4.WebServicesSourceReference_Def.__bases__)
-                bases.insert(0, ns4.SourceReference_Def)
-                ns4.WebServicesSourceReference_Def.__bases__ = tuple(bases)
+            if ns5.SourceReference_Def not in ns5.WebServicesSourceReference_Def.__bases__:
+                bases = list(ns5.WebServicesSourceReference_Def.__bases__)
+                bases.insert(0, ns5.SourceReference_Def)
+                ns5.WebServicesSourceReference_Def.__bases__ = tuple(bases)
 
-            ns4.SourceReference_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
+            ns5.SourceReference_Def.__init__(self, pname, ofwhat=TClist, extend=True, attributes=attributes, **kw)
 
     class Provenance_Def(ZSI.TCcompound.ComplexType, TypeDefinition):
         schema = "urn:domain.provenance.common.nci.nih.gov"
         type = (schema, "Provenance")
         def __init__(self, pname, ofwhat=(), attributes=None, extend=False, restrict=False, **kw):
-            ns = ns4.Provenance_Def.schema
+            ns = ns5.Provenance_Def.schema
             TClist = [ZSI.TC.String(pname="evidenceCode", aname="_evidenceCode", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="fullyQualifiedClassName", aname="_fullyQualifiedClassName", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TCnumbers.Ilong(pname="id", aname="_id", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.provenance.common.nci.nih.gov","Source",lazy=True)(pname="immediateSource", aname="_immediateSource", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="objectIdentifier", aname="_objectIdentifier", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.provenance.common.nci.nih.gov","Source",lazy=True)(pname="originalSource", aname="_originalSource", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.provenance.common.nci.nih.gov","SourceReference",lazy=True)(pname="sourceReference", aname="_sourceReference", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), GTD("urn:domain.provenance.common.nci.nih.gov","Source",lazy=True)(pname="supplyingSource", aname="_supplyingSource", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded")), ZSI.TC.String(pname="transformation", aname="_transformation", minOccurs=1, maxOccurs=1, nillable=True, typed=False, encoded=kw.get("encoded"))]
             self.attribute_typecode_dict = attributes or {}
             if extend: TClist += ofwhat
@@ -1943,7 +2388,7 @@ class ns4:
             Holder.__name__ = "Provenance_Holder"
             self.pyclass = Holder
 
-# end class ns4 (tns: urn:domain.provenance.common.nci.nih.gov)
+# end class ns5 (tns: urn:domain.provenance.common.nci.nih.gov)
 
 ##############################
 # targetNamespace
