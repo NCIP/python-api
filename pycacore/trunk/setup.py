@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='pyCaCORE',
-      version='0.1.0',
+      version='0.3.0',
       description='caCORE Python API Generator',
       long_description='Python API generator for caCORE-like systems',
       license='caBIO Software License',
@@ -19,9 +19,9 @@ setup(name='pyCaCORE',
       ],
       include_package_data = True,
       namespace_packages = ['cabig'],
-      install_requires = [ "setuptools >= 0.6c3", 'ZSI==2.1_a1' ],
+      install_requires = [ 'setuptools>=0.6c3', 'ZSI==2.1_a1', 'Cheetah>=2.4' ],
       dependency_links = [
-            'http://downloads.sourceforge.net/pywebsvcs/ZSI-2.1_a1-py2.5.egg',
+            'https://gforge.nci.nih.gov/frs/?group_id=525'
       ],
       entry_points = {
             'console_scripts': [
