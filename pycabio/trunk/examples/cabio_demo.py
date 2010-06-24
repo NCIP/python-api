@@ -13,5 +13,7 @@ gene.symbol = 'brca*'
 r = c.queryObject(Gene.className, gene)
 
 for g in r:
-    print "%s.%s - %s" % (g.taxon.abbreviation,g.clusterId,g.fullName)
+    print "%s (%s) - %s" % (g.symbol,g.taxon.commonName,g.fullName)
+    for x in g.databaseCrossReferenceCollection:
+        print "    %s: %s" % (x.dataSourceName, x.crossReferenceId)
 

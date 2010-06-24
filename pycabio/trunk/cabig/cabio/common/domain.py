@@ -23,3 +23,16 @@ class DatabaseCrossReference(WSBean):
         if not(holder): holder = schema.DatabaseCrossReference_Def(None).pyclass()
         WSBean.__init__(self, holder, service=service, **kwargs)
     
+class Keyword(WSBean):
+
+    arrayType =  services.ns1.ArrayOf_xsd_anyType_Def(None).pyclass
+    className = "gov.nih.nci.common.domain.Keyword"
+
+    id = ProxyAttr('id')
+    score = ProxyAttr('score')
+    value = ProxyAttr('value')
+    
+    def __init__(self, holder=None, service=None, **kwargs):
+        if not(holder): holder = schema.Keyword_Def(None).pyclass()
+        WSBean.__init__(self, holder, service=service, **kwargs)
+    

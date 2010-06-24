@@ -2,7 +2,7 @@
 import cabig.cabio.CaBioWSQueryService_client as services
 from cabig.cacore.ws.proxy import *
 
-schema = services.ns4
+schema = services.ns5
 
 class BiochemicalReaction(WSBean):
 

@@ -1,6 +1,6 @@
 
 # The location of the input WSDL
-WSDL_FILE = "conf/cabio42.wsdl"
+WSDL_FILE = "conf/cabio43.wsdl"
 
 # Root package for the resulting API 
 ROOT_PACKAGE = "cabig.cabio"

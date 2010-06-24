@@ -4,19 +4,50 @@ from cabig.cacore.ws.proxy import *
 
 schema = services.ns3
 
+class AgentAlias(WSBean):
+
+    arrayType =  services.ns1.ArrayOf_xsd_anyType_Def(None).pyclass
+    className = "gov.nih.nci.cabio.domain.AgentAlias"
+
+    id = ProxyAttr('id')
+    name = ProxyAttr('name')
+    type = ProxyAttr('type')
+    agentCollection = ProxyAssoc('agentCollection',True)
+    
+    def __init__(self, holder=None, service=None, **kwargs):
+        if not(holder): holder = schema.AgentAlias_Def(None).pyclass()
+        WSBean.__init__(self, holder, service=service, **kwargs)
+    
 class Agent(WSBean):
 
     arrayType =  services.ns1.ArrayOf_xsd_anyType_Def(None).pyclass
     className = "gov.nih.nci.cabio.domain.Agent"
 
     EVSId = ProxyAttr('EVSId')
+    IUPACName = ProxyAttr('IUPACName')
     NSCNumber = ProxyAttr('NSCNumber')
+    SMILESCode = ProxyAttr('SMILESCode')
+    absorption = ProxyAttr('absorption')
     bigid = ProxyAttr('bigid')
+    biotransformation = ProxyAttr('biotransformation')
+    casNumber = ProxyAttr('casNumber')
+    chemicalFormula = ProxyAttr('chemicalFormula')
     comment = ProxyAttr('comment')
+    drugbankAccession = ProxyAttr('drugbankAccession')
+    halfLife = ProxyAttr('halfLife')
     id = ProxyAttr('id')
+    indication = ProxyAttr('indication')
     isCMAPAgent = ProxyAttr('isCMAPAgent')
+    mechanismOfAction = ProxyAttr('mechanismOfAction')
+    molecularWeight = ProxyAttr('molecularWeight')
     name = ProxyAttr('name')
+    percentProteinBinding = ProxyAttr('percentProteinBinding')
+    pharmacology = ProxyAttr('pharmacology')
+    pubchemCompoundId = ProxyAttr('pubchemCompoundId')
+    pubchemSubstanceId = ProxyAttr('pubchemSubstanceId')
     source = ProxyAttr('source')
+    toxicity = ProxyAttr('toxicity')
+    agentAliasCollection = ProxyAssoc('agentAliasCollection',True)
     clinicalTrialProtocolCollection = ProxyAssoc('clinicalTrialProtocolCollection',True)
     geneFunctionAssociationCollection = ProxyAssoc('geneFunctionAssociationCollection',True)
     pathwayEntityCollection = ProxyAssoc('pathwayEntityCollection',True)
@@ -167,6 +198,24 @@ class Clone(WSBean):
     
     def __init__(self, holder=None, service=None, **kwargs):
         if not(holder): holder = schema.Clone_Def(None).pyclass()
+        WSBean.__init__(self, holder, service=service, **kwargs)
+    
+class ConstrainedRegion(WSBean):
+
+    arrayType =  services.ns1.ArrayOf_xsd_anyType_Def(None).pyclass
+    className = "gov.nih.nci.cabio.domain.ConstrainedRegion"
+
+    id = ProxyAttr('id')
+    assembly = ProxyAttr('assembly')
+    chromosomalEndPosition = ProxyAttr('chromosomalEndPosition')
+    chromosomalStartPosition = ProxyAttr('chromosomalStartPosition')
+    pvalue = ProxyAttr('pvalue')
+    score = ProxyAttr('score')
+    chromosome = ProxyAssoc('chromosome',False)
+    multipleAlignment = ProxyAssoc('multipleAlignment',False)
+    
+    def __init__(self, holder=None, service=None, **kwargs):
+        if not(holder): holder = schema.ConstrainedRegion_Def(None).pyclass()
         WSBean.__init__(self, holder, service=service, **kwargs)
     
 class CytobandPhysicalLocation(WSBean):
@@ -378,7 +427,8 @@ class GeneAgentAssociation(WSBean):
     bigid = ProxyAttr('bigid')
     id = ProxyAttr('id')
     role = ProxyAttr('role')
-    evidence = ProxyAssoc('evidence',False)
+    source = ProxyAttr('source')
+    evidenceCollection = ProxyAssoc('evidenceCollection',True)
     gene = ProxyAssoc('gene',False)
     agent = ProxyAssoc('agent',False)
     
@@ -425,7 +475,8 @@ class GeneDiseaseAssociation(WSBean):
     bigid = ProxyAttr('bigid')
     id = ProxyAttr('id')
     role = ProxyAttr('role')
-    evidence = ProxyAssoc('evidence',False)
+    source = ProxyAttr('source')
+    evidenceCollection = ProxyAssoc('evidenceCollection',True)
     gene = ProxyAssoc('gene',False)
     diseaseOntology = ProxyAssoc('diseaseOntology',False)
     
@@ -441,7 +492,8 @@ class GeneFunctionAssociation(WSBean):
     bigid = ProxyAttr('bigid')
     id = ProxyAttr('id')
     role = ProxyAttr('role')
-    evidence = ProxyAssoc('evidence',False)
+    source = ProxyAttr('source')
+    evidenceCollection = ProxyAssoc('evidenceCollection',True)
     gene = ProxyAssoc('gene',False)
     
     def __init__(self, holder=None, service=None, **kwargs):
@@ -730,6 +782,7 @@ class Microarray(WSBean):
 
     LSID = ProxyAttr('LSID')
     annotationDate = ProxyAttr('annotationDate')
+    annotationVersion = ProxyAttr('annotationVersion')
     bigid = ProxyAttr('bigid')
     dbSNPVersion = ProxyAttr('dbSNPVersion')
     description = ProxyAttr('description')
@@ -742,6 +795,22 @@ class Microarray(WSBean):
     
     def __init__(self, holder=None, service=None, **kwargs):
         if not(holder): holder = schema.Microarray_Def(None).pyclass()
+        WSBean.__init__(self, holder, service=service, **kwargs)
+    
+class MultipleAlignment(WSBean):
+
+    arrayType =  services.ns1.ArrayOf_xsd_anyType_Def(None).pyclass
+    className = "gov.nih.nci.cabio.domain.MultipleAlignment"
+
+    id = ProxyAttr('id')
+    name = ProxyAttr('name')
+    source = ProxyAttr('source')
+    type = ProxyAttr('type')
+    conservedPhysicalLocationCollection = ProxyAssoc('conservedPhysicalLocationCollection',True)
+    taxonCollection = ProxyAssoc('taxonCollection',True)
+    
+    def __init__(self, holder=None, service=None, **kwargs):
+        if not(holder): holder = schema.MultipleAlignment_Def(None).pyclass()
         WSBean.__init__(self, holder, service=service, **kwargs)
     
 class NucleicAcidPhysicalLocation(WSBean):
@@ -1103,6 +1172,7 @@ class Taxon(WSBean):
     cloneCollection = ProxyAssoc('cloneCollection',True)
     geneCollection = ProxyAssoc('geneCollection',True)
     markerCollection = ProxyAssoc('markerCollection',True)
+    multipleAlignmentCollection = ProxyAssoc('multipleAlignmentCollection',True)
     pathwayCollection = ProxyAssoc('pathwayCollection',True)
     proteinCollection = ProxyAssoc('proteinCollection',True)
     tissueCollection = ProxyAssoc('tissueCollection',True)
