@@ -1,7 +1,8 @@
 Welcome to the Python API Project!
 ===================================
 
-Python API is python tools for accessing caBIG services that include pyCaCORE code generator, caBIO client (pyCaBIO) and EVS client (pyEVS). It is developed using python script.
+Python API is python tools for accessing caCORE services that include pyCaCORE code generator, caBIO client (pyCaBIO) 
+and EVS client (pyEVS). It is developed using python script.
 
 Python API is distributed under the BSD 3-Clause License. Please see the NOTICE and LICENSE files for details.
 
